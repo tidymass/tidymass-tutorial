@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TidyMass Tutorial",
+    "section": "",
+    "text": "Preface\nHere, you can learn how to use tidyMass to do the data processing and analysis for the LC-MS metabolomics data. It contains several parts.\n\n\nIf you are new to R or the tidyverse\nWe recommend that you start by learning some basics about R and the tidyverse first, then return here when you feel ready. Here are some resources to start learning:\n\nFinding Your Way To R, from the RStudio Education team.\nLearn the tidyverse, from the tidyverse team.\n\n\n\nPart 1. Install tidymass\nYou can learn how to install tidymass, and update it. You can also find here how to download the docker version of tidymass and build your own docker image based on tidymass.\n\n\nPart 2. massdatabase package and mass_dataset class\nYou can find here how to download the demo data and create mass_dataset class by yourself. And how to use mass_dataset class organize your omics data and process it.\n\n\nPart 3. Metabolite annotation\nAll the metabolite annotation can be found here. You can also learn here how to construct the databases for metid using the massdatabase package.\n\n\nPart 4. Whole workflow using tidymass\nHere, you can learn how to use tidymass for data processing and analysis, from data converting to biological function mining.\nThe code, data and docker image of case study in our manuscript are provided here.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
