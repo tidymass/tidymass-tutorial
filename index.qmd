@@ -8,8 +8,7 @@ Here, you can learn how to use `tidyMass` to do the data processing and analysis
 
 ## 📥 Contact us
 
-- 📩 Email [xiaotao.shen@outlook.com](xiaotao.shen@outlook.com)
-- 🏠 Shen Lab website [shen-lab.org](https://www.shen-lab.org/)
-- 💬 WeChat [jaspershen1990](https://jaspershen.github.io/image/wechat_QR.jpg)
-- 🐦 Twitter [xiaotaoshen1990](https://twitter.com/xiaotaoshen1990)
-
+-   📩 Email [xiaotao.shen\@outlook.com](xiaotao.shen@outlook.com)
+-   🏠 Shen Lab website [shen-lab.org](https://www.shen-lab.org/)
+-   💬 WeChat [jaspershen1990](https://jaspershen.github.io/image/wechat_QR.jpg)
+-   🐦 Twitter [xiaotaoshen1990](https://twitter.com/xiaotaoshen1990)

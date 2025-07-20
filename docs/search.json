@@ -548,5 +548,25 @@
       "Raw data processing",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Raw data processing</span>"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TidyMass Tutorial",
+    "section": "",
+    "text": "Preface\nTidyMass is a comprehensive computational framework for data processing and analysis of LC-MS data using tidyverse principles. It is developed by the Shen Lab at Nanyang Technological University, Singapore.\nHere, you can learn how to use tidyMass to do the data processing and analysis for the LC-MS metabolomics data. It contains several parts.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#contact-us",
+    "href": "index.html#contact-us",
+    "title": "TidyMass Tutorial",
+    "section": "📥 Contact us",
+    "text": "📥 Contact us\n\n📩 Email xiaotao.shen@outlook.com\n🏠 Shen Lab website shen-lab.org\n💬 WeChat jaspershen1990\n🐦 Twitter xiaotaoshen1990",
+    "crumbs": [
+      "Preface"
+    ]
   }
 ]
