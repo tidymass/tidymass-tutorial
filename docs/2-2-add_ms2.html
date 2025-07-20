@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Update – TidyMass Tutorial</title>
+<title>6&nbsp; Add MS2 spectra data into mass_dataset class object” – TidyMass Tutorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1-3-docker_tidymass.html" rel="next">
-<link href="./1-1-installation.html" rel="prev">
+<link href="./2-1-create_mass_dataset.html" rel="prev">
 <link href=".//images/tidymass_icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-1-installation.html">Install tidymass</a></li><li class="breadcrumb-item"><a href="./1-2-update.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Update</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2-1-create_mass_dataset.html">massdataset package</a></li><li class="breadcrumb-item"><a href="./2-2-add_ms2.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -173,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-2-update.html" class="sidebar-item-text sidebar-link active">
+  <a href="./1-2-update.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Update</span></span></a>
   </div>
 </li>
@@ -209,7 +208,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2-1-create_mass_dataset.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data preparation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create mass_dataset class</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-2-add_ms2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></span></a>
   </div>
 </li>
       </ul>
@@ -224,18 +229,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#check-tidymass-version" id="toc-check-tidymass-version" class="nav-link active" data-scroll-target="#check-tidymass-version"><span class="header-section-number">2.1</span> Check <code>tidymass</code> version</a></li>
-  <li><a href="#update-tidymass" id="toc-update-tidymass" class="nav-link" data-scroll-target="#update-tidymass"><span class="header-section-number">2.2</span> Update <code>tidymass</code></a></li>
-  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">2.3</span> Session information</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation"><span class="header-section-number">6.1</span> Data preparation</a>
+  <ul class="collapse">
+  <li><a href="#mass_dataset-class-object" id="toc-mass_dataset-class-object" class="nav-link" data-scroll-target="#mass_dataset-class-object"><span class="header-section-number">6.1.1</span> <code>mass_dataset</code> class object</a></li>
+  <li><a href="#ms2-data" id="toc-ms2-data" class="nav-link" data-scroll-target="#ms2-data"><span class="header-section-number">6.1.2</span> MS2 data</a></li>
+  </ul></li>
+  <li><a href="#add-ms2-to-mass_dataset-class-object" id="toc-add-ms2-to-mass_dataset-class-object" class="nav-link" data-scroll-target="#add-ms2-to-mass_dataset-class-object"><span class="header-section-number">6.2</span> Add MS2 to <code>mass_dataset</code> class object</a></li>
+  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">6.3</span> Session information</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/1-2-update.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/1-2-update.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/2-2-add_ms2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/2-2-add_ms2.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-1-installation.html">Install tidymass</a></li><li class="breadcrumb-item"><a href="./1-2-update.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Update</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2-1-create_mass_dataset.html">massdataset package</a></li><li class="breadcrumb-item"><a href="./2-2-add_ms2.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Update</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></h1>
 </div>
 
 
@@ -252,97 +261,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="check-tidymass-version" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="check-tidymass-version"><span class="header-section-number">2.1</span> Check <code>tidymass</code> version</h2>
-<p>The <code>tidymass</code> package allows you to check the version of all packages and update them. To check for updates specifically for <code>tidymass</code> and its associated packages, you can use the following code.</p>
+<p><code>mass_dataset</code> class object can also contain MS2 data.</p>
+<section id="data-preparation" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">6.1</span> Data preparation</h2>
+<section id="mass_dataset-class-object" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="mass_dataset-class-object"><span class="header-section-number">6.1.1</span> <code>mass_dataset</code> class object</h3>
+<p>We need to create a <code>mass_dataset</code> class object first, <a href="https://www.tidymass.org/tidymass-tutorial/2-1-create_mass_dataset.html">see this document</a>. And here we use the data from this step as an example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tidymass<span class="sc">::</span><span class="fu">check_tidymass_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in fun(libname, pkgname): mzR has been built against a different Rcpp version (1.0.12)
-than is installed on your system (1.0.13.1). This might lead to errors
-when loading mzR. If you encounter such issues, please send a report,
-including the output of sessionInfo() to the Bioc support forum at 
-https://support.bioconductor.org/. For details see also
-https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue.</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"demo_data/feature_table/object_pos"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"demo_data/feature_table/object_neg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'Hmisc':
-  method       from      
-  vcov.default fit.models</code></pre>
+</section>
+<section id="ms2-data" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="ms2-data"><span class="header-section-number">6.1.2</span> MS2 data</h3>
+<p>The MS2 raw data should be converted to <code>mgf</code> format data. Please <a href="../../chapter3/1-data_convert/">refer this document</a>.</p>
+<p>Here we use the demo data for <code>tidymass</code>, please download it and put it in the <code>mgf_ms2_data</code> folder.</p>
+<p><a href="https://drive.google.com/file/d/1FY3x7q5i1g3oSLaVej__ZaZ4XSX-mWBQ/view?usp=sharing">💾 Download link is here.</a></p>
+<p>Then uncompress it.</p>
+</section>
+</section>
+<section id="add-ms2-to-mass_dataset-class-object" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="add-ms2-to-mass_dataset-class-object"><span class="header-section-number">6.2</span> Add MS2 to <code>mass_dataset</code> class object</h2>
+<p>Positive mode.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(massdataset)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>object_pos2 <span class="ot">=</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_ms2</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">object =</span> object_pos,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">column =</span> <span class="st">"rp"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">polarity =</span> <span class="st">"positive"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ms1.ms2.match.mz.tol =</span> <span class="dv">10</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ms1.ms2.match.rt.tol =</span> <span class="dv">15</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"demo_data/mgf_ms2_data/POS/"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: replacing previous import 'massdataset::check_mass_dataset' by
-'metid::check_mass_dataset' when loading 'tidymass'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: replacing previous import 'masstools::remove_noise' by
-'metid::remove_noise' when loading 'tidymass'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>## tidymass/tidymass is out of date...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/massconverter is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/massdataset is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>## tidymass/massprocesser is out of date...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/masscleaner is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>## tidymass/massqc is out of date...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/metid is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>## tidymass/massstat is out of date...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/metpath is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>##tidymass/masstools is up-to-date devel version</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Use update_tidymass() to update the following pacakges.</code></pre>
-</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>object_pos2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        package installed_version latest_version up_to_date
-1      tidymass             1.0.8         2.0.10      FALSE
-2 massprocesser            1.0.10         1.0.11      FALSE
-3        massqc             1.0.6          1.0.7      FALSE
-4      massstat             1.0.5          1.0.6      FALSE</code></pre>
+<pre><code>-------------------- 
+massdataset version: 1.0.25 
+-------------------- 
+1.expression_data:[ 1612 x 36 data.frame]
+2.sample_info:[ 36 x 4 data.frame]
+36 samples:bl20210902_3 bl20210902_4 bl20210902_5 ... bl20210902_37 bl20210902_38
+3.variable_info:[ 1612 x 3 data.frame]
+1612 variables:M86T44_POS M90T638_POS M91T631_POS ... M1197T265_POS M1198T265_POS
+4.sample_info_note:[ 4 x 2 data.frame]
+5.variable_info_note:[ 3 x 2 data.frame]
+6.ms2_data:[ 9 variables x 9 MS2 spectra]
+-------------------- 
+Processing information
+2 processings in total
+create_mass_dataset ---------- 
+      Package         Function.used                Time
+1 massdataset create_mass_dataset() 2023-09-04 00:57:14
+mutate_ms2 ---------- 
+      Package Function.used                Time
+1 massdataset  mutate_ms2() 2025-07-20 19:12:02</code></pre>
 </div>
 </div>
-<p>This will list all the packages version and if there are some new versions can be updated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>object_pos2<span class="sc">@</span>ms2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`QEP_SGA_QC_posi_ms2_ce25_01.mgf;QEP_SGA_QC_posi_ms2_ce25_02.mgf;QEP_SGA_QC_posi_ms2_ce50_01.mgf;QEP_SGA_QC_posi_ms2_ce50_02.mgf`
+-------------------- 
+column: rp 
+polarity: positive 
+mz_tol: 10 
+rt_tol (second): 15 
+-------------------- 
+9 variables:
+M103T92_POS M120T92_1_POS M133T255_POS M149T93_POS M166T94_POS...
+9 MS2 spectra.
+mz103.054814801682rt96.92601 mz120.081003145403rt103.263636 mz133.101364135742rt269.674188 mz149.059844970703rt99.091818 mz166.086254683842rt103.128918...</code></pre>
+</div>
+</div>
+<p>Negative mode.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>object_neg2 <span class="ot">=</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_ms2</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">object =</span> object_neg,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">column =</span> <span class="st">"rp"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">polarity =</span> <span class="st">"negative"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ms1.ms2.match.mz.tol =</span> <span class="dv">10</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ms1.ms2.match.rt.tol =</span> <span class="dv">15</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"demo_data/mgf_ms2_data/NEG/"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>object_neg2<span class="sc">@</span>ms2_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`QEP_SGA_QC_neg_ms2_ce25_01.mgf;QEP_SGA_QC_neg_ms2_ce25_02.mgf;QEP_SGA_QC_neg_ms2_ce50_01.mgf;QEP_SGA_QC_neg_ms2_ce50_02.mgf`
+-------------------- 
+column: rp 
+polarity: negative 
+mz_tol: 10 
+rt_tol (second): 15 
+-------------------- 
+44 variables:
+M101T106_NEG M116T626_NEG M116T505_NEG M116T483_NEG M116T586_NEG...
+43 MS2 spectra.
+mz101.023086547852rt97.383582 mz115.919448852539rt634.03908 mz115.919456481934rt515.338818 mz115.919372558594rt471.106446 mz115.919403076172rt591.442212...</code></pre>
+</div>
+</div>
 </section>
-<section id="update-tidymass" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="update-tidymass"><span class="header-section-number">2.2</span> Update <code>tidymass</code></h2>
-<p>The <code>update_tidymass()</code> function can be used to update <code>tidymass</code> and packages within it.</p>
+<section id="session-information" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="session-information"><span class="header-section-number">6.3</span> Session information</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tidymass<span class="sc">::</span><span class="fu">update_tidymass</span>(<span class="at">from =</span> <span class="st">"gitlab"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>You can change the <code>from</code> argument if <code>from = "gitlab"</code> doesn’t work.</p>
-<ol type="1">
-<li><p>“github”</p></li>
-<li><p>“gitee”</p></li>
-<li><p>“tidymass.org”</p></li>
-</ol>
-<p>If all the options of <code>from</code> don’t work, you can try to set <code>fastgit</code> as <code>TRUE</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tidymass<span class="sc">::</span><span class="fu">update_tidymass</span>(<span class="at">from =</span> <span class="st">"gitlab"</span>,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">fastgit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="session-information" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="session-information"><span class="header-section-number">2.3</span> Session information</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.4.1 (2024-06-14)
 Platform: aarch64-apple-darwin20
@@ -361,99 +387,65 @@ tzcode source: internal
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] ggplot2_3.5.1      dplyr_1.1.4        magrittr_2.0.3     masstools_1.0.15  
+[5] massdataset_1.0.34
+
 loaded via a namespace (and not attached):
-  [1] tibble_3.2.1                polyclip_1.10-7            
-  [3] preprocessCore_1.66.0       XML_3.99-0.17              
-  [5] rpart_4.1.23                fastDummies_1.7.4          
-  [7] lifecycle_1.0.4             doParallel_1.0.17          
-  [9] globals_0.16.3              lattice_0.22-6             
- [11] MASS_7.3-61                 MultiAssayExperiment_1.30.3
- [13] backports_1.5.0             magrittr_2.0.3             
- [15] openxlsx_4.2.7.1            limma_3.60.6               
- [17] Hmisc_5.2-0                 rmarkdown_2.29             
- [19] remotes_2.5.0               doRNG_1.8.6                
- [21] zip_2.3.1                   MsCoreUtils_1.16.1         
- [23] pbapply_1.7-2               DBI_1.2.3                  
- [25] metid_1.3.1                 RColorBrewer_1.1-3         
- [27] abind_1.4-8                 zlibbioc_1.50.0            
- [29] rvest_1.0.4                 GenomicRanges_1.56.2       
- [31] purrr_1.0.2                 ggraph_2.2.1               
- [33] AnnotationFilter_1.28.0     BiocGenerics_0.50.0        
- [35] itertools_0.1-3             nnet_7.3-19                
- [37] tweenr_2.0.3                massstat_1.0.5             
- [39] circlize_0.4.16             GenomeInfoDbData_1.2.12    
- [41] IRanges_2.38.1              S4Vectors_0.42.1           
- [43] ggrepel_0.9.6               listenv_0.9.1              
- [45] ellipse_0.5.0               masstools_1.0.15           
- [47] RSpectra_0.16-2             missForest_1.5             
- [49] parallelly_1.38.0           MSnbase_2.30.1             
- [51] ncdf4_1.23                  codetools_0.2-20           
- [53] DelayedArray_0.30.1         ggforce_0.4.2              
- [55] xml2_1.3.6                  tidyselect_1.2.1           
- [57] Spectra_1.14.1              shape_1.4.6.1              
- [59] UCSC.utils_1.0.0            farver_2.1.2               
- [61] viridis_0.6.5               massdataset_1.0.34         
- [63] matrixStats_1.4.1           stats4_4.4.1               
- [65] base64enc_0.1-3             massqc_1.0.6               
- [67] jsonlite_1.8.9              GetoptLong_1.0.5           
- [69] e1071_1.7-16                tidygraph_1.3.1            
- [71] Formula_1.2-5               iterators_1.0.14           
- [73] foreach_1.5.2               tools_4.4.1                
- [75] progress_1.2.3              Rcpp_1.0.13-1              
- [77] glue_1.8.0                  rARPACK_0.11-0             
- [79] gridExtra_2.3               SparseArray_1.4.8          
- [81] xfun_0.52                   mixOmics_6.28.0            
- [83] MatrixGenerics_1.16.0       ggfortify_0.4.17           
- [85] GenomeInfoDb_1.40.1         dplyr_1.1.4                
- [87] withr_3.0.2                 BiocManager_1.30.25        
- [89] fastmap_1.2.0               digest_0.6.37              
- [91] R6_2.5.1                    colorspace_2.1-1           
- [93] tidyr_1.3.1                 generics_0.1.3             
- [95] data.table_1.16.2           corpcor_1.6.10             
- [97] robustbase_0.99-4-1         class_7.3-22               
- [99] graphlayouts_1.2.0          prettyunits_1.2.0          
-[101] PSMatch_1.8.0               httr_1.4.7                 
-[103] htmlwidgets_1.6.4           S4Arrays_1.4.1             
-[105] pkgconfig_2.0.3             gtable_0.3.6               
-[107] robust_0.7-5                tidymass_1.0.8             
-[109] ComplexHeatmap_2.20.0       impute_1.78.0              
-[111] MassSpecWavelet_1.70.0      XVector_0.44.0             
-[113] pcaPP_2.0-5                 furrr_0.3.1                
-[115] htmltools_0.5.8.1           MALDIquant_1.22.3          
-[117] ProtGenerics_1.36.0         clue_0.3-65                
-[119] scales_1.3.0                Biobase_2.64.0             
-[121] png_0.1-8                   knitr_1.49                 
-[123] MetaboCoreUtils_1.12.0      rstudioapi_0.17.1          
-[125] tzdb_0.4.0                  reshape2_1.4.4             
-[127] rjson_0.2.23                checkmate_2.3.2            
-[129] ggcorrplot_0.1.4.1          cachem_1.1.0               
-[131] proxy_0.4-27                GlobalOptions_0.1.2        
-[133] stringr_1.5.1               parallel_4.4.1             
-[135] foreign_0.8-87              mzID_1.42.0                
-[137] vsn_3.72.0                  pillar_1.11.0              
-[139] grid_4.4.1                  vctrs_0.6.5                
-[141] MsFeatures_1.12.0           pcaMethods_1.96.0          
-[143] randomForest_4.7-1.2        cluster_2.1.6              
-[145] htmlTable_2.4.3             evaluate_1.0.1             
-[147] readr_2.1.5                 mvtnorm_1.3-2              
-[149] cli_3.6.3                   compiler_4.4.1             
-[151] rlang_1.1.4                 crayon_1.5.3               
-[153] rngtools_1.5.2              Rdisop_1.64.0              
-[155] rrcov_1.7-6                 QFeatures_1.14.2           
-[157] affy_1.82.0                 plyr_1.8.9                 
-[159] masscleaner_1.0.12          fs_1.6.5                   
-[161] stringi_1.8.4               viridisLite_0.4.2          
-[163] BiocParallel_1.38.0         Biostrings_2.72.1          
-[165] munsell_0.5.1               fit.models_0.64            
-[167] lazyeval_0.2.2              xcms_4.2.3                 
-[169] massprocesser_1.0.10        Matrix_1.7-1               
-[171] hms_1.1.3                   patchwork_1.3.0            
-[173] future_1.34.0               MsExperiment_1.6.0         
-[175] ggplot2_3.5.1               KEGGREST_1.44.1            
-[177] statmod_1.5.0               SummarizedExperiment_1.34.0
-[179] mzR_2.38.0                  memoise_2.0.1              
-[181] igraph_2.1.1                affyio_1.74.0              
-[183] DEoptimR_1.1-3              metpath_1.0.10             </code></pre>
+  [1] pbapply_1.7-2               remotes_2.5.0              
+  [3] rlang_1.1.4                 clue_0.3-65                
+  [5] GetoptLong_1.0.5            matrixStats_1.4.1          
+  [7] compiler_4.4.1              png_0.1-8                  
+  [9] vctrs_0.6.5                 reshape2_1.4.4             
+ [11] rvest_1.0.4                 stringr_1.5.1              
+ [13] ProtGenerics_1.36.0         pkgconfig_2.0.3            
+ [15] shape_1.4.6.1               crayon_1.5.3               
+ [17] fastmap_1.2.0               XVector_0.44.0             
+ [19] rmarkdown_2.29              tzdb_0.4.0                 
+ [21] UCSC.utils_1.0.0            preprocessCore_1.66.0      
+ [23] purrr_1.0.2                 xfun_0.52                  
+ [25] MultiAssayExperiment_1.30.3 zlibbioc_1.50.0            
+ [27] GenomeInfoDb_1.40.1         jsonlite_1.8.9             
+ [29] DelayedArray_0.30.1         BiocParallel_1.38.0        
+ [31] parallel_4.4.1              cluster_2.1.6              
+ [33] R6_2.5.1                    stringi_1.8.4              
+ [35] RColorBrewer_1.1-3          limma_3.60.6               
+ [37] GenomicRanges_1.56.2        Rcpp_1.0.13-1              
+ [39] SummarizedExperiment_1.34.0 iterators_1.0.14           
+ [41] knitr_1.49                  readr_2.1.5                
+ [43] IRanges_2.38.1              Matrix_1.7-1               
+ [45] igraph_2.1.1                tidyselect_1.2.1           
+ [47] rstudioapi_0.17.1           abind_1.4-8                
+ [49] doParallel_1.0.17           codetools_0.2-20           
+ [51] affy_1.82.0                 lattice_0.22-6             
+ [53] tibble_3.2.1                plyr_1.8.9                 
+ [55] withr_3.0.2                 Biobase_2.64.0             
+ [57] evaluate_1.0.1              zip_2.3.1                  
+ [59] xml2_1.3.6                  circlize_0.4.16            
+ [61] pillar_1.11.0               affyio_1.74.0              
+ [63] BiocManager_1.30.25         MatrixGenerics_1.16.0      
+ [65] foreach_1.5.2               stats4_4.4.1               
+ [67] MSnbase_2.30.1              MALDIquant_1.22.3          
+ [69] ncdf4_1.23                  generics_0.1.3             
+ [71] hms_1.1.3                   S4Vectors_0.42.1           
+ [73] munsell_0.5.1               scales_1.3.0               
+ [75] glue_1.8.0                  lazyeval_0.2.2             
+ [77] tools_4.4.1                 mzID_1.42.0                
+ [79] QFeatures_1.14.2            vsn_3.72.0                 
+ [81] mzR_2.38.0                  openxlsx_4.2.7.1           
+ [83] XML_3.99-0.17               grid_4.4.1                 
+ [85] impute_1.78.0               tidyr_1.3.1                
+ [87] MsCoreUtils_1.16.1          colorspace_2.1-1           
+ [89] GenomeInfoDbData_1.2.12     PSMatch_1.8.0              
+ [91] cli_3.6.3                   S4Arrays_1.4.1             
+ [93] ComplexHeatmap_2.20.0       AnnotationFilter_1.28.0    
+ [95] pcaMethods_1.96.0           gtable_0.3.6               
+ [97] digest_0.6.37               BiocGenerics_0.50.0        
+ [99] SparseArray_1.4.8           rjson_0.2.23               
+[101] htmlwidgets_1.6.4           htmltools_0.5.8.1          
+[103] lifecycle_1.0.4             httr_1.4.7                 
+[105] GlobalOptions_0.1.2         statmod_1.5.0              
+[107] MASS_7.3-61                </code></pre>
 </div>
 </div>
 
@@ -1024,14 +1016,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./1-1-installation.html" class="pagination-link" aria-label="Installation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installation</span></span>
+      <a href="./2-1-create_mass_dataset.html" class="pagination-link" aria-label="Create mass_dataset class">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create mass_dataset class</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1-3-docker_tidymass.html" class="pagination-link" aria-label="Docker version tidymass">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Docker version tidymass</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1039,4 +1028,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/1-2-update.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/1-2-update.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/2-2-add_ms2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/2-2-add_ms2.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

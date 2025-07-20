@@ -8,19 +8,19 @@ The `massdataset` class object can be used to store the untargeted metabolomics 
 
 Let's first prepare the data objects according to the attached figure for each file.
 
-### 1. `sample_info` (required)
+### `sample_info` (required)
 
 The columns `sample_id` (sample ID), `injection.order` (injection order of samples), `class` (Blank, QC, Subject, etc), `group` (case, control, etc) are required.
 
 ![](/images/part2/Screen1.png)
 
-### 2. `variable_info` (required)
+### `variable_info` (required)
 
 The columns `variable_id` (variable ID), `mz` (mass to charge ratio), `rt` (retention time, unit is second) are required.
 
 ![](/images/part2/Screen2.png)
 
-### 3. `expression_data` (required)
+### `expression_data` (required)
 
 Columns are samples are rows are features (variables). 
 
@@ -28,13 +28,13 @@ Columns are samples are rows are features (variables).
 
 ![](/images/part2/Screen3.png)
 
-### 4. `sample_info_note` (optional)
+### `sample_info_note` (optional)
 
 This is the metadata for `sample_info`. 
 
 ![](/images/part2/Screen4.png)
 
-### 5. `variable_info_note` (optional)
+### `variable_info_note` (optional)
 
 This is the metadata for `variable_info`.
 
@@ -140,7 +140,7 @@ save(object_neg, file = "demo_data/feature_table/object_neg")
 ```
 
 
-## Export `mass_dataset` class object to csv for xlsx
+## Export `mass_dataset` class object to csv or xlsx
 
 ```{r,eval=TRUE,warning=FALSE, R.options="", message=TRUE, cache=TRUE}
 export_mass_dataset(object = object_pos,

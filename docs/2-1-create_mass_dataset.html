@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./2-2-add_ms2.html" rel="next">
 <link href="./references.html" rel="prev">
 <link href=".//images/tidymass_icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -211,6 +212,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create mass_dataset class</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-2-add_ms2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -225,15 +232,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation"><span class="header-section-number">5.1</span> Data preparation</a>
   <ul class="collapse">
-  <li><a href="#sample_info-required" id="toc-sample_info-required" class="nav-link" data-scroll-target="#sample_info-required"><span class="header-section-number">5.1.1</span> 1. <code>sample_info</code> (required)</a></li>
-  <li><a href="#variable_info-required" id="toc-variable_info-required" class="nav-link" data-scroll-target="#variable_info-required"><span class="header-section-number">5.1.2</span> 2. <code>variable_info</code> (required)</a></li>
-  <li><a href="#expression_data-required" id="toc-expression_data-required" class="nav-link" data-scroll-target="#expression_data-required"><span class="header-section-number">5.1.3</span> 3. <code>expression_data</code> (required)</a></li>
-  <li><a href="#sample_info_note-optional" id="toc-sample_info_note-optional" class="nav-link" data-scroll-target="#sample_info_note-optional"><span class="header-section-number">5.1.4</span> 4. <code>sample_info_note</code> (optional)</a></li>
-  <li><a href="#variable_info_note-optional" id="toc-variable_info_note-optional" class="nav-link" data-scroll-target="#variable_info_note-optional"><span class="header-section-number">5.1.5</span> 5. <code>variable_info_note</code> (optional)</a></li>
+  <li><a href="#sample_info-required" id="toc-sample_info-required" class="nav-link" data-scroll-target="#sample_info-required"><span class="header-section-number">5.1.1</span> <code>sample_info</code> (required)</a></li>
+  <li><a href="#variable_info-required" id="toc-variable_info-required" class="nav-link" data-scroll-target="#variable_info-required"><span class="header-section-number">5.1.2</span> <code>variable_info</code> (required)</a></li>
+  <li><a href="#expression_data-required" id="toc-expression_data-required" class="nav-link" data-scroll-target="#expression_data-required"><span class="header-section-number">5.1.3</span> <code>expression_data</code> (required)</a></li>
+  <li><a href="#sample_info_note-optional" id="toc-sample_info_note-optional" class="nav-link" data-scroll-target="#sample_info_note-optional"><span class="header-section-number">5.1.4</span> <code>sample_info_note</code> (optional)</a></li>
+  <li><a href="#variable_info_note-optional" id="toc-variable_info_note-optional" class="nav-link" data-scroll-target="#variable_info_note-optional"><span class="header-section-number">5.1.5</span> <code>variable_info_note</code> (optional)</a></li>
   </ul></li>
   <li><a href="#download-demo-data" id="toc-download-demo-data" class="nav-link" data-scroll-target="#download-demo-data"><span class="header-section-number">5.2</span> Download demo data</a></li>
   <li><a href="#create-mass_data-class-object" id="toc-create-mass_data-class-object" class="nav-link" data-scroll-target="#create-mass_data-class-object"><span class="header-section-number">5.3</span> Create <code>mass_data</code> class object</a></li>
-  <li><a href="#export-mass_dataset-class-object-to-csv-for-xlsx" id="toc-export-mass_dataset-class-object-to-csv-for-xlsx" class="nav-link" data-scroll-target="#export-mass_dataset-class-object-to-csv-for-xlsx"><span class="header-section-number">5.4</span> Export <code>mass_dataset</code> class object to csv for xlsx</a></li>
+  <li><a href="#export-mass_dataset-class-object-to-csv-or-xlsx" id="toc-export-mass_dataset-class-object-to-csv-or-xlsx" class="nav-link" data-scroll-target="#export-mass_dataset-class-object-to-csv-or-xlsx"><span class="header-section-number">5.4</span> Export <code>mass_dataset</code> class object to csv or xlsx</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/2-1-create_mass_dataset.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/2-1-create_mass_dataset.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -265,17 +272,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>massdataset</code> class object can be used to store the untargeted metabolomics data.</p>
 <p>Let’s first prepare the data objects according to the attached figure for each file.</p>
 <section id="sample_info-required" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="sample_info-required"><span class="header-section-number">5.1.1</span> 1. <code>sample_info</code> (required)</h3>
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sample_info-required"><span class="header-section-number">5.1.1</span> <code>sample_info</code> (required)</h3>
 <p>The columns <code>sample_id</code> (sample ID), <code>injection.order</code> (injection order of samples), <code>class</code> (Blank, QC, Subject, etc), <code>group</code> (case, control, etc) are required.</p>
 <p><img src="./images/part2/Screen1.png" class="img-fluid"></p>
 </section>
 <section id="variable_info-required" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="variable_info-required"><span class="header-section-number">5.1.2</span> 2. <code>variable_info</code> (required)</h3>
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="variable_info-required"><span class="header-section-number">5.1.2</span> <code>variable_info</code> (required)</h3>
 <p>The columns <code>variable_id</code> (variable ID), <code>mz</code> (mass to charge ratio), <code>rt</code> (retention time, unit is second) are required.</p>
 <p><img src="./images/part2/Screen2.png" class="img-fluid"></p>
 </section>
 <section id="expression_data-required" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="expression_data-required"><span class="header-section-number">5.1.3</span> 3. <code>expression_data</code> (required)</h3>
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="expression_data-required"><span class="header-section-number">5.1.3</span> <code>expression_data</code> (required)</h3>
 <p>Columns are samples are rows are features (variables).</p>
 <blockquote class="blockquote">
 <p>The column names of expression_data should be completely same with sample_id in <code>sample_info</code>, and the row names of expression_data should be completely same with variable_id in <code>variable_info</code>.</p>
@@ -283,12 +290,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="./images/part2/Screen3.png" class="img-fluid"></p>
 </section>
 <section id="sample_info_note-optional" class="level3" data-number="5.1.4">
-<h3 data-number="5.1.4" class="anchored" data-anchor-id="sample_info_note-optional"><span class="header-section-number">5.1.4</span> 4. <code>sample_info_note</code> (optional)</h3>
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="sample_info_note-optional"><span class="header-section-number">5.1.4</span> <code>sample_info_note</code> (optional)</h3>
 <p>This is the metadata for <code>sample_info</code>.</p>
 <p><img src="./images/part2/Screen4.png" class="img-fluid"></p>
 </section>
 <section id="variable_info_note-optional" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="variable_info_note-optional"><span class="header-section-number">5.1.5</span> 5. <code>variable_info_note</code> (optional)</h3>
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="variable_info_note-optional"><span class="header-section-number">5.1.5</span> <code>variable_info_note</code> (optional)</h3>
 <p>This is the metadata for <code>variable_info</code>.</p>
 <p><img src="./images/part2/Screen5.png" class="img-fluid"></p>
 </section>
@@ -499,8 +506,8 @@ create_mass_dataset ----------
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(object_neg, <span class="at">file =</span> <span class="st">"demo_data/feature_table/object_neg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="export-mass_dataset-class-object-to-csv-for-xlsx" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="export-mass_dataset-class-object-to-csv-for-xlsx"><span class="header-section-number">5.4</span> Export <code>mass_dataset</code> class object to csv for xlsx</h2>
+<section id="export-mass_dataset-class-object-to-csv-or-xlsx" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="export-mass_dataset-class-object-to-csv-or-xlsx"><span class="header-section-number">5.4</span> Export <code>mass_dataset</code> class object to csv or xlsx</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_mass_dataset</span>(<span class="at">object =</span> object_pos,</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">file_type =</span> <span class="st">"xlsx"</span>,</span>
@@ -1163,6 +1170,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./2-2-add_ms2.html" class="pagination-link" aria-label="Add MS2 spectra data into mass_dataset class object&quot;">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
