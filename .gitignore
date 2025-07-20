@@ -1,0 +1,7 @@
+/.quarto/
+
+demo_data
+demo_data/
+
+**/*_cache/
+**/*_files/

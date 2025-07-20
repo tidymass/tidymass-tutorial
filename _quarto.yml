@@ -1,25 +1,42 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "TidyMass Tutorial"
   author: "Yijiang Liu and Xiaotao Shen"
   date: "7/20/2025"
+  favicon: "/images/tidymass_icon.png"
+  url: http://www.tidymass.org/tidymass-tutorial/
+  sidebar:
+    logo: "images/tidymass_logo.png"
+    search: true
+  repo-url: https://github.com/tidymass/tidymass-tutorial
+  repo-actions: [edit, issue, source]
+  image: "images/tidymass_logo.png"
+  
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    
+    - part: "Install tidymass"
+      chapters:
+        - 1-1-installation.qmd
+        - 1-2-update.qmd
+        - 1-3-docker_tidymass.qmd
+        - 1-4-build_own_docker.qmd
+        - references.qmd
+
+    - part: "massdataset package"
+      chapters:
+        - 2-1-create_mass_dataset.qmd
 
 bibliography: references.bib
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
-  pdf:
-    documentclass: scrreprt
+      light: cosmo
+      dark: superhero
 
 editor: visual
 
