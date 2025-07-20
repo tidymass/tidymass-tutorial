@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Processing information in mass_data class – TidyMass Tutorial</title>
+<title>10&nbsp; Convert data using proteowizard – TidyMass Tutorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./2-4-extract.html" rel="prev">
+<link href="./2-5-processing_information.html" rel="prev">
 <link href=".//images/tidymass_icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2-1-create_mass_dataset.html">massdataset package</a></li><li class="breadcrumb-item"><a href="./2-5-processing_information.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-1-proteowizard.html">Data format converter</a></li><li class="breadcrumb-item"><a href="./3-1-proteowizard.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-5-processing_information.html" class="sidebar-item-text sidebar-link active">
+  <a href="./2-5-processing_information.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></span></a>
   </div>
 </li>
@@ -248,8 +248,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-1-create_mass_dataset.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create mass_dataset class</span></span></a>
+  <a href="./3-1-proteowizard.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></span></a>
   </div>
 </li>
       </ul>
@@ -264,19 +264,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation"><span class="header-section-number">9.1</span> Data preparation</a></li>
-  <li><a href="#process_info" id="toc-process_info" class="nav-link" data-scroll-target="#process_info"><span class="header-section-number">9.2</span> <code>process_info</code></a></li>
-  <li><a href="#output-html-processing-information" id="toc-output-html-processing-information" class="nav-link" data-scroll-target="#output-html-processing-information"><span class="header-section-number">9.3</span> Output html processing information</a></li>
-  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">9.4</span> Session information</a></li>
+  <li><a href="#install-proteowizard" id="toc-install-proteowizard" class="nav-link active" data-scroll-target="#install-proteowizard"><span class="header-section-number">10.1</span> Install <code>Proteowizard</code></a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="header-section-number">10.2</span> Data preparation</a></li>
+  <li><a href="#convert-ms1-data-to-mzxml-format-data" id="toc-convert-ms1-data-to-mzxml-format-data" class="nav-link" data-scroll-target="#convert-ms1-data-to-mzxml-format-data"><span class="header-section-number">10.3</span> Convert MS1 data to <code>mzXML</code> format data</a></li>
+  <li><a href="#convert-ms2-data-to-mzxml-or-mgf-format-data" id="toc-convert-ms2-data-to-mzxml-or-mgf-format-data" class="nav-link" data-scroll-target="#convert-ms2-data-to-mzxml-or-mgf-format-data"><span class="header-section-number">10.4</span> Convert MS2 data to <code>mzXML</code> or <code>mgf</code> format data</a></li>
+  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">10.5</span> Session information</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/2-5-processing_information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/2-5-processing_information.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/3-1-proteowizard.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/3-1-proteowizard.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2-1-create_mass_dataset.html">massdataset package</a></li><li class="breadcrumb-item"><a href="./2-5-processing_information.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-1-proteowizard.html">Data format converter</a></li><li class="breadcrumb-item"><a href="./3-1-proteowizard.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></h1>
 </div>
 
 
@@ -293,136 +294,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="data-preparation" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">9.1</span> Data preparation</h2>
-<p>In <code>mass_dataset</code> class object, it contains all the processing information in it. We can trace the analysis and parameters so we can do the reproducible analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(massdataset)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"expression_data"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sample_info"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"variable_info"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>object <span class="ot">=</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_mass_dataset</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">expression_data =</span> expression_data,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample_info =</span> sample_info,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable_info =</span> variable_info</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>object <span class="ot">=</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  object <span class="sc">%&gt;%</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate_mass_dataset</span>(<span class="at">what =</span> <span class="st">"expression_data"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(QC_1))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>object <span class="ot">=</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  object <span class="sc">%&gt;%</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate_mass_dataset</span>(<span class="at">what =</span> <span class="st">"expression_data"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(QC_2))</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>object <span class="ot">=</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  object <span class="sc">%&gt;%</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_mean_intensity</span>()</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>object <span class="ot">=</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  object <span class="sc">%&gt;%</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_median_intensity</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_rsd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="install-proteowizard" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="install-proteowizard"><span class="header-section-number">10.1</span> Install <code>Proteowizard</code></h2>
+<p><code>Proteowizard</code> only supports Windows OS. So if you don’t use Windows OS, consider <a href="../2-data_convert">massconverter</a>.</p>
+<p>Download <a href="https://proteowizard.sourceforge.io/">Proteowizard</a> and install it.</p>
 </section>
-<section id="process_info" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="process_info"><span class="header-section-number">9.2</span> <code>process_info</code></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>process_info <span class="ot">=</span> <span class="fu">extract_process_info</span>(object)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>process_info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$create_mass_dataset
--------------------- 
-pacakge_name: massdataset 
-function_name: create_mass_dataset() 
-time: 2025-07-20 19:17:24.136639 
-parameters:
-no : no 
-
-$filter
-$filter[[1]]
--------------------- 
-pacakge_name: massdataset 
-function_name: filter() 
-time: 2025-07-20 19:17:24.257823 
-parameters:
-parameter : `~!is.na(QC_1)` 
-
-$filter[[2]]
--------------------- 
-pacakge_name: massdataset 
-function_name: filter() 
-time: 2025-07-20 19:17:24.258741 
-parameters:
-parameter : `~!is.na(QC_2)` 
-
-
-$mutate_mean_intensity
--------------------- 
-pacakge_name: massdataset 
-function_name: mutate_mean_intensity() 
-time: 2025-07-20 19:17:24.261094 
-parameters:
-according_to_samples : c("Blank_3", "Blank_4", "QC_1", "QC_2", "PS4P1", "PS4P2", "PS4P3", "PS4P4") 
-
-$mutate_median_intensity
--------------------- 
-pacakge_name: massdataset 
-function_name: mutate_median_intensity() 
-time: 2025-07-20 19:17:24.267445 
-parameters:
-according_to_samples : c("Blank_3", "Blank_4", "QC_1", "QC_2", "PS4P1", "PS4P2", "PS4P3", "PS4P4") 
-
-$mutate_rsd
--------------------- 
-pacakge_name: massdataset 
-function_name: mutate_rsd() 
-time: 2025-07-20 19:17:24.27099 
-parameters:
-according_to_samples : c("Blank_3", "Blank_4", "QC_1", "QC_2", "PS4P1", "PS4P2", "PS4P3", "PS4P4") </code></pre>
-</div>
-</div>
-<p>The process_info contains all the steps which are ordered by time.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>process_info<span class="sc">$</span>mutate_median_intensity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>-------------------- 
-pacakge_name: massdataset 
-function_name: mutate_median_intensity() 
-time: 2025-07-20 19:17:24.267445 
-parameters:
-according_to_samples : c("Blank_3", "Blank_4", "QC_1", "QC_2", "PS4P1", "PS4P2", "PS4P3", "PS4P4") </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>process_info<span class="sc">$</span>mutate_median_intensity<span class="sc">@</span>parameter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$according_to_samples
-[1] "Blank_3" "Blank_4" "QC_1"    "QC_2"    "PS4P1"   "PS4P2"   "PS4P3"  
-[8] "PS4P4"  </code></pre>
-</div>
-</div>
+<section id="data-preparation" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">10.2</span> Data preparation</h2>
+<p>Please place the raw data in one folder according to MS1 and MS2. Then you can convert them using <code>Proteowizard</code> package.</p>
 </section>
-<section id="output-html-processing-information" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="output-html-processing-information"><span class="header-section-number">9.3</span> Output html processing information</h2>
-<p>We can output the <code>process_info</code> into a html format file, so we can know what processing steps have been made to this object and the accurate parameters.</p>
-<p>Then we can use <code>report_parameters()</code> to output this into a html file.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_parameters</span>(<span class="at">object =</span> object, </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">path =</span> <span class="st">"demo_data/data_cleaning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>A html file named as <code>parameter_report.html</code> will be generated and saved in <code>data_cleaning</code> folder.</p>
-<p><img src="./images/part2/Screen7.png" class="img-fluid"></p>
+<section id="convert-ms1-data-to-mzxml-format-data" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="convert-ms1-data-to-mzxml-format-data"><span class="header-section-number">10.3</span> Convert MS1 data to <code>mzXML</code> format data</h2>
+<p>Just convert data into <code>mzXML</code> format data according to the parameters below:</p>
+<p><img src="./images/part3/fig1.png" class="img-fluid"></p>
 </section>
-<section id="session-information" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="session-information"><span class="header-section-number">9.4</span> Session information</h2>
+<section id="convert-ms2-data-to-mzxml-or-mgf-format-data" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="convert-ms2-data-to-mzxml-or-mgf-format-data"><span class="header-section-number">10.4</span> Convert MS2 data to <code>mzXML</code> or <code>mgf</code> format data</h2>
+<p>Just convert data into <code>mzXML</code> or <code>mgf</code> format data according to the parameters below:</p>
+<p><img src="./images/part3/fig2.png" class="img-fluid"></p>
+</section>
+<section id="session-information" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="session-information"><span class="header-section-number">10.5</span> Session information</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.4.1 (2024-06-14)
 Platform: aarch64-apple-darwin20
@@ -441,65 +335,11 @@ tzcode source: internal
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
- [1] lubridate_1.9.3    forcats_1.0.0      stringr_1.5.1      purrr_1.0.2       
- [5] readr_2.1.5        tidyr_1.3.1        tibble_3.2.1       tidyverse_2.0.0   
- [9] ggplot2_3.5.1      dplyr_1.1.4        magrittr_2.0.3     masstools_1.0.15  
-[13] massdataset_1.0.34
-
 loaded via a namespace (and not attached):
-  [1] pbapply_1.7-2               remotes_2.5.0              
-  [3] rlang_1.1.4                 clue_0.3-65                
-  [5] GetoptLong_1.0.5            matrixStats_1.4.1          
-  [7] compiler_4.4.1              png_0.1-8                  
-  [9] vctrs_0.6.5                 reshape2_1.4.4             
- [11] rvest_1.0.4                 ProtGenerics_1.36.0        
- [13] pkgconfig_2.0.3             shape_1.4.6.1              
- [15] crayon_1.5.3                fastmap_1.2.0              
- [17] XVector_0.44.0              rmarkdown_2.29             
- [19] tzdb_0.4.0                  UCSC.utils_1.0.0           
- [21] preprocessCore_1.66.0       xfun_0.52                  
- [23] MultiAssayExperiment_1.30.3 zlibbioc_1.50.0            
- [25] GenomeInfoDb_1.40.1         jsonlite_1.8.9             
- [27] DelayedArray_0.30.1         BiocParallel_1.38.0        
- [29] parallel_4.4.1              cluster_2.1.6              
- [31] R6_2.5.1                    stringi_1.8.4              
- [33] RColorBrewer_1.1-3          limma_3.60.6               
- [35] GenomicRanges_1.56.2        Rcpp_1.0.13-1              
- [37] SummarizedExperiment_1.34.0 iterators_1.0.14           
- [39] knitr_1.49                  IRanges_2.38.1             
- [41] timechange_0.3.0            Matrix_1.7-1               
- [43] igraph_2.1.1                tidyselect_1.2.1           
- [45] rstudioapi_0.17.1           abind_1.4-8                
- [47] doParallel_1.0.17           codetools_0.2-20           
- [49] affy_1.82.0                 lattice_0.22-6             
- [51] plyr_1.8.9                  withr_3.0.2                
- [53] Biobase_2.64.0              evaluate_1.0.1             
- [55] zip_2.3.1                   xml2_1.3.6                 
- [57] circlize_0.4.16             pillar_1.11.0              
- [59] affyio_1.74.0               BiocManager_1.30.25        
- [61] MatrixGenerics_1.16.0       foreach_1.5.2              
- [63] stats4_4.4.1                MSnbase_2.30.1             
- [65] MALDIquant_1.22.3           ncdf4_1.23                 
- [67] generics_0.1.3              hms_1.1.3                  
- [69] S4Vectors_0.42.1            munsell_0.5.1              
- [71] scales_1.3.0                glue_1.8.0                 
- [73] lazyeval_0.2.2              tools_4.4.1                
- [75] mzID_1.42.0                 QFeatures_1.14.2           
- [77] vsn_3.72.0                  mzR_2.38.0                 
- [79] openxlsx_4.2.7.1            XML_3.99-0.17              
- [81] grid_4.4.1                  impute_1.78.0              
- [83] MsCoreUtils_1.16.1          colorspace_2.1-1           
- [85] GenomeInfoDbData_1.2.12     PSMatch_1.8.0              
- [87] cli_3.6.3                   S4Arrays_1.4.1             
- [89] ComplexHeatmap_2.20.0       AnnotationFilter_1.28.0    
- [91] pcaMethods_1.96.0           gtable_0.3.6               
- [93] digest_0.6.37               BiocGenerics_0.50.0        
- [95] SparseArray_1.4.8           rjson_0.2.23               
- [97] htmlwidgets_1.6.4           htmltools_0.5.8.1          
- [99] lifecycle_1.0.4             httr_1.4.7                 
-[101] GlobalOptions_0.1.2         statmod_1.5.0              
-[103] MASS_7.3-61                </code></pre>
+ [1] htmlwidgets_1.6.4 compiler_4.4.1    fastmap_1.2.0     cli_3.6.3        
+ [5] tools_4.4.1       htmltools_0.5.8.1 rstudioapi_0.17.1 rmarkdown_2.29   
+ [9] knitr_1.49        jsonlite_1.8.9    xfun_0.52         digest_0.6.37    
+[13] rlang_1.1.4       evaluate_1.0.1   </code></pre>
 </div>
 </div>
 
@@ -1070,8 +910,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./2-4-extract.html" class="pagination-link" aria-label="Extract data from mass_dataset">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Extract data from mass_dataset</span></span>
+      <a href="./2-5-processing_information.html" class="pagination-link" aria-label="Processing information in mass_data class">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1082,4 +922,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/2-5-processing_information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/2-5-processing_information.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/3-1-proteowizard.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/3-1-proteowizard.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

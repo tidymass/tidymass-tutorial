@@ -33,6 +33,9 @@ book:
         - 2-3-mass_dataset_other_tools.qmd
         - 2-4-extract.qmd
         - 2-5-processing_information.qmd
+    - part: "Data format converter"
+      chapters:
+        - 3-1-proteowizard.qmd
 
 bibliography: references.bib
 

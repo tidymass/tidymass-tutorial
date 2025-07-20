@@ -328,5 +328,60 @@
       "massdataset package",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Processing information in mass_data class</span>"
     ]
+  },
+  {
+    "objectID": "3-1-proteowizard.html",
+    "href": "3-1-proteowizard.html",
+    "title": "10  Convert data using proteowizard",
+    "section": "",
+    "text": "10.1 Install Proteowizard\nProteowizard only supports Windows OS. So if you don’t use Windows OS, consider massconverter.\nDownload Proteowizard and install it.",
+    "crumbs": [
+      "Data format converter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Convert data using proteowizard</span>"
+    ]
+  },
+  {
+    "objectID": "3-1-proteowizard.html#data-preparation",
+    "href": "3-1-proteowizard.html#data-preparation",
+    "title": "10  Convert data using proteowizard",
+    "section": "10.2 Data preparation",
+    "text": "10.2 Data preparation\nPlease place the raw data in one folder according to MS1 and MS2. Then you can convert them using Proteowizard package.",
+    "crumbs": [
+      "Data format converter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Convert data using proteowizard</span>"
+    ]
+  },
+  {
+    "objectID": "3-1-proteowizard.html#convert-ms1-data-to-mzxml-format-data",
+    "href": "3-1-proteowizard.html#convert-ms1-data-to-mzxml-format-data",
+    "title": "10  Convert data using proteowizard",
+    "section": "10.3 Convert MS1 data to mzXML format data",
+    "text": "10.3 Convert MS1 data to mzXML format data\nJust convert data into mzXML format data according to the parameters below:",
+    "crumbs": [
+      "Data format converter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Convert data using proteowizard</span>"
+    ]
+  },
+  {
+    "objectID": "3-1-proteowizard.html#session-information",
+    "href": "3-1-proteowizard.html#session-information",
+    "title": "10  Convert data using proteowizard",
+    "section": "10.5 Session information",
+    "text": "10.5 Session information\n\nsessionInfo()\n\nR version 4.4.1 (2024-06-14)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS 15.5\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Asia/Singapore\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.4 compiler_4.4.1    fastmap_1.2.0     cli_3.6.3        \n [5] tools_4.4.1       htmltools_0.5.8.1 rstudioapi_0.17.1 rmarkdown_2.29   \n [9] knitr_1.49        jsonlite_1.8.9    xfun_0.52         digest_0.6.37    \n[13] rlang_1.1.4       evaluate_1.0.1",
+    "crumbs": [
+      "Data format converter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Convert data using proteowizard</span>"
+    ]
+  },
+  {
+    "objectID": "3-1-proteowizard.html#convert-ms2-data-to-mzxml-or-mgf-format-data",
+    "href": "3-1-proteowizard.html#convert-ms2-data-to-mzxml-or-mgf-format-data",
+    "title": "10  Convert data using proteowizard",
+    "section": "10.4 Convert MS2 data to mzXML or mgf format data",
+    "text": "10.4 Convert MS2 data to mzXML or mgf format data\nJust convert data into mzXML or mgf format data according to the parameters below:",
+    "crumbs": [
+      "Data format converter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Convert data using proteowizard</span>"
+    ]
   }
 ]
