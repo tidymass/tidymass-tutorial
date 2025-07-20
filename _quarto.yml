@@ -32,6 +32,7 @@ book:
         - 2-2-add_ms2.qmd
         - 2-3-mass_dataset_other_tools.qmd
         - 2-4-extract.qmd
+        - 2-5-processing_information.qmd
 
 bibliography: references.bib
 
