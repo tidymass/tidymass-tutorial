@@ -568,5 +568,71 @@
     "crumbs": [
       "Preface"
     ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html",
+    "href": "1-4-build_own_docker.html",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "",
+    "text": "4.1 Create dockerfile\nYou can build your own docker image, which contains all your code, data and analysis environment, which is more efficient for reproducible analysis.\nCreate a dockerfile without extension. And then open and modify it.\nIf you want to install packages (for example ggraph) which are necessary for you analysis, please add a new line:\nAnd you also need to copy your data to the image use the COPY.",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html#create-dockerfile",
+    "href": "1-4-build_own_docker.html#create-dockerfile",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "",
+    "text": "FROM jaspershen/tidymass:latest\nMAINTAINER \"Xiaotao Shen\" shenxt1990@outlook.com\n\nRUN apt-get update && apt-get install -y curl\n\nCOPY demo_data/ /home/rstudio/demo_data/\n\nRUN chmod 777 /home/rstudio/demo_data/\n\nRUN R -e 'install.packages(\"remotes\")'\n\nRUN R -e \"remotes::install_gitlab('jaspershen/tidymass')\"\n\nRUN R -e 'install.packages(\"ggraph\")'",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html#build-image",
+    "href": "1-4-build_own_docker.html#build-image",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "4.2 Build image",
+    "text": "4.2 Build image\nIn the terminal, use below code to build the image.\ndocker build -t image-name -f Dockerfile .\nChange the image-name.",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html#use-the-docker-tag-command-to-give-the-tidymass-image-a-new-name",
+    "href": "1-4-build_own_docker.html#use-the-docker-tag-command-to-give-the-tidymass-image-a-new-name",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "4.3 Use the docker tag command to give the tidymass image a new name",
+    "text": "4.3 Use the docker tag command to give the tidymass image a new name\nWe need to create a account on the docker hub (https://hub.docker.com/) and then use the next code to link the local image to our account.\ndocker tag image-name your-account/image-name:latest",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html#push-image-to-docker-hub",
+    "href": "1-4-build_own_docker.html#push-image-to-docker-hub",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "4.4 Push image to docker hub",
+    "text": "4.4 Push image to docker hub\ndocker push your-account/image-name:latest\nThen other people can download your image which contains your code, data and analysis environment, which make it is pretty easy to repeat your analysis and results.\nHow to pull docker image and run it can refer this document.",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
+  },
+  {
+    "objectID": "1-4-build_own_docker.html#session-information",
+    "href": "1-4-build_own_docker.html#session-information",
+    "title": "4  Build your own docker image based on tidymass",
+    "section": "4.5 Session information",
+    "text": "4.5 Session information\n\nsessionInfo()\n\nR version 4.4.1 (2024-06-14)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS 15.5\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Asia/Singapore\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.4 compiler_4.4.1    fastmap_1.2.0     cli_3.6.3        \n [5] tools_4.4.1       htmltools_0.5.8.1 rstudioapi_0.17.1 rmarkdown_2.29   \n [9] knitr_1.49        jsonlite_1.8.9    xfun_0.52         digest_0.6.37    \n[13] rlang_1.1.4       evaluate_1.0.1",
+    "crumbs": [
+      "Install tidymass",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Build your own docker image based on tidymass</span>"
+    ]
   }
 ]
