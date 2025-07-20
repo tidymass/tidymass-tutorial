@@ -284,5 +284,49 @@
       "massdataset package",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Extract data from mass_dataset</span>"
     ]
+  },
+  {
+    "objectID": "2-5-processing_information.html",
+    "href": "2-5-processing_information.html",
+    "title": "9  Processing information in mass_data class",
+    "section": "",
+    "text": "9.1 Data preparation\nIn mass_dataset class object, it contains all the processing information in it. We can trace the analysis and parameters so we can do the reproducible analysis.\nlibrary(massdataset)\n\ndata(\"expression_data\")\ndata(\"sample_info\")\ndata(\"variable_info\")\n\nobject =\n  create_mass_dataset(\n    expression_data = expression_data,\n    sample_info = sample_info,\n    variable_info = variable_info\n  )\n\nlibrary(tidyverse)\n\nobject =\n  object %&gt;%\n  activate_mass_dataset(what = \"expression_data\") %&gt;%\n  filter(!is.na(QC_1))\n\nobject =\n  object %&gt;%\n  activate_mass_dataset(what = \"expression_data\") %&gt;%\n  filter(!is.na(QC_2))\n\nobject =\n  object %&gt;%\n  mutate_mean_intensity()\n\nobject =\n  object %&gt;%\n  mutate_median_intensity() %&gt;%\n  mutate_rsd()",
+    "crumbs": [
+      "massdataset package",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Processing information in mass_data class</span>"
+    ]
+  },
+  {
+    "objectID": "2-5-processing_information.html#process_info",
+    "href": "2-5-processing_information.html#process_info",
+    "title": "9  Processing information in mass_data class",
+    "section": "9.2 process_info",
+    "text": "9.2 process_info\n\nprocess_info = extract_process_info(object)\nprocess_info\n\n$create_mass_dataset\n-------------------- \npacakge_name: massdataset \nfunction_name: create_mass_dataset() \ntime: 2025-07-20 19:17:24.136639 \nparameters:\nno : no \n\n$filter\n$filter[[1]]\n-------------------- \npacakge_name: massdataset \nfunction_name: filter() \ntime: 2025-07-20 19:17:24.257823 \nparameters:\nparameter : `~!is.na(QC_1)` \n\n$filter[[2]]\n-------------------- \npacakge_name: massdataset \nfunction_name: filter() \ntime: 2025-07-20 19:17:24.258741 \nparameters:\nparameter : `~!is.na(QC_2)` \n\n\n$mutate_mean_intensity\n-------------------- \npacakge_name: massdataset \nfunction_name: mutate_mean_intensity() \ntime: 2025-07-20 19:17:24.261094 \nparameters:\naccording_to_samples : c(\"Blank_3\", \"Blank_4\", \"QC_1\", \"QC_2\", \"PS4P1\", \"PS4P2\", \"PS4P3\", \"PS4P4\") \n\n$mutate_median_intensity\n-------------------- \npacakge_name: massdataset \nfunction_name: mutate_median_intensity() \ntime: 2025-07-20 19:17:24.267445 \nparameters:\naccording_to_samples : c(\"Blank_3\", \"Blank_4\", \"QC_1\", \"QC_2\", \"PS4P1\", \"PS4P2\", \"PS4P3\", \"PS4P4\") \n\n$mutate_rsd\n-------------------- \npacakge_name: massdataset \nfunction_name: mutate_rsd() \ntime: 2025-07-20 19:17:24.27099 \nparameters:\naccording_to_samples : c(\"Blank_3\", \"Blank_4\", \"QC_1\", \"QC_2\", \"PS4P1\", \"PS4P2\", \"PS4P3\", \"PS4P4\") \n\n\nThe process_info contains all the steps which are ordered by time.\n\nprocess_info$mutate_median_intensity\n\n-------------------- \npacakge_name: massdataset \nfunction_name: mutate_median_intensity() \ntime: 2025-07-20 19:17:24.267445 \nparameters:\naccording_to_samples : c(\"Blank_3\", \"Blank_4\", \"QC_1\", \"QC_2\", \"PS4P1\", \"PS4P2\", \"PS4P3\", \"PS4P4\") \n\nprocess_info$mutate_median_intensity@parameter\n\n$according_to_samples\n[1] \"Blank_3\" \"Blank_4\" \"QC_1\"    \"QC_2\"    \"PS4P1\"   \"PS4P2\"   \"PS4P3\"  \n[8] \"PS4P4\"",
+    "crumbs": [
+      "massdataset package",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Processing information in mass_data class</span>"
+    ]
+  },
+  {
+    "objectID": "2-5-processing_information.html#output-html-processing-information",
+    "href": "2-5-processing_information.html#output-html-processing-information",
+    "title": "9  Processing information in mass_data class",
+    "section": "9.3 Output html processing information",
+    "text": "9.3 Output html processing information\nWe can output the process_info into a html format file, so we can know what processing steps have been made to this object and the accurate parameters.\nThen we can use report_parameters() to output this into a html file.\n\nreport_parameters(object = object, \n                  path = \"demo_data/data_cleaning\")\n\nA html file named as parameter_report.html will be generated and saved in data_cleaning folder.",
+    "crumbs": [
+      "massdataset package",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Processing information in mass_data class</span>"
+    ]
+  },
+  {
+    "objectID": "2-5-processing_information.html#session-information",
+    "href": "2-5-processing_information.html#session-information",
+    "title": "9  Processing information in mass_data class",
+    "section": "9.4 Session information",
+    "text": "9.4 Session information\n\nsessionInfo()\n\nR version 4.4.1 (2024-06-14)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS 15.5\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Asia/Singapore\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n [1] lubridate_1.9.3    forcats_1.0.0      stringr_1.5.1      purrr_1.0.2       \n [5] readr_2.1.5        tidyr_1.3.1        tibble_3.2.1       tidyverse_2.0.0   \n [9] ggplot2_3.5.1      dplyr_1.1.4        magrittr_2.0.3     masstools_1.0.15  \n[13] massdataset_1.0.34\n\nloaded via a namespace (and not attached):\n  [1] pbapply_1.7-2               remotes_2.5.0              \n  [3] rlang_1.1.4                 clue_0.3-65                \n  [5] GetoptLong_1.0.5            matrixStats_1.4.1          \n  [7] compiler_4.4.1              png_0.1-8                  \n  [9] vctrs_0.6.5                 reshape2_1.4.4             \n [11] rvest_1.0.4                 ProtGenerics_1.36.0        \n [13] pkgconfig_2.0.3             shape_1.4.6.1              \n [15] crayon_1.5.3                fastmap_1.2.0              \n [17] XVector_0.44.0              rmarkdown_2.29             \n [19] tzdb_0.4.0                  UCSC.utils_1.0.0           \n [21] preprocessCore_1.66.0       xfun_0.52                  \n [23] MultiAssayExperiment_1.30.3 zlibbioc_1.50.0            \n [25] GenomeInfoDb_1.40.1         jsonlite_1.8.9             \n [27] DelayedArray_0.30.1         BiocParallel_1.38.0        \n [29] parallel_4.4.1              cluster_2.1.6              \n [31] R6_2.5.1                    stringi_1.8.4              \n [33] RColorBrewer_1.1-3          limma_3.60.6               \n [35] GenomicRanges_1.56.2        Rcpp_1.0.13-1              \n [37] SummarizedExperiment_1.34.0 iterators_1.0.14           \n [39] knitr_1.49                  IRanges_2.38.1             \n [41] timechange_0.3.0            Matrix_1.7-1               \n [43] igraph_2.1.1                tidyselect_1.2.1           \n [45] rstudioapi_0.17.1           abind_1.4-8                \n [47] doParallel_1.0.17           codetools_0.2-20           \n [49] affy_1.82.0                 lattice_0.22-6             \n [51] plyr_1.8.9                  withr_3.0.2                \n [53] Biobase_2.64.0              evaluate_1.0.1             \n [55] zip_2.3.1                   xml2_1.3.6                 \n [57] circlize_0.4.16             pillar_1.11.0              \n [59] affyio_1.74.0               BiocManager_1.30.25        \n [61] MatrixGenerics_1.16.0       foreach_1.5.2              \n [63] stats4_4.4.1                MSnbase_2.30.1             \n [65] MALDIquant_1.22.3           ncdf4_1.23                 \n [67] generics_0.1.3              hms_1.1.3                  \n [69] S4Vectors_0.42.1            munsell_0.5.1              \n [71] scales_1.3.0                glue_1.8.0                 \n [73] lazyeval_0.2.2              tools_4.4.1                \n [75] mzID_1.42.0                 QFeatures_1.14.2           \n [77] vsn_3.72.0                  mzR_2.38.0                 \n [79] openxlsx_4.2.7.1            XML_3.99-0.17              \n [81] grid_4.4.1                  impute_1.78.0              \n [83] MsCoreUtils_1.16.1          colorspace_2.1-1           \n [85] GenomeInfoDbData_1.2.12     PSMatch_1.8.0              \n [87] cli_3.6.3                   S4Arrays_1.4.1             \n [89] ComplexHeatmap_2.20.0       AnnotationFilter_1.28.0    \n [91] pcaMethods_1.96.0           gtable_0.3.6               \n [93] digest_0.6.37               BiocGenerics_0.50.0        \n [95] SparseArray_1.4.8           rjson_0.2.23               \n [97] htmlwidgets_1.6.4           htmltools_0.5.8.1          \n [99] lifecycle_1.0.4             httr_1.4.7                 \n[101] GlobalOptions_0.1.2         statmod_1.5.0              \n[103] MASS_7.3-61",
+    "crumbs": [
+      "massdataset package",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Processing information in mass_data class</span>"
+    ]
   }
 ]

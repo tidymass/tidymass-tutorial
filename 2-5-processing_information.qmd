@@ -67,7 +67,7 @@ report_parameters(object = object,
 
 A html file named as `parameter_report.html` will be generated and saved in `data_cleaning` folder. 
 
-![](/docs/chapter2/figures/Screen7.png)
+![](/images/part2/Screen7.png)
 
 ## Session information
 
