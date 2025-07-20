@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Convert data using massconverter – TidyMass Tutorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./4-1-raw_data_processing.html" rel="next">
+<link href="./3-1-proteowizard.html" rel="prev">
+<link href=".//images/tidymass_icon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-632f36f2c1407c4cee85ceeffdfc11c1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-1-proteowizard.html">Data format converter</a></li><li class="breadcrumb-item"><a href="./3-2-data_convert.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Convert data using massconverter</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/tidymass_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">TidyMass Tutorial</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/tidymass/tidymass-tutorial" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Install tidymass</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-1-installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-2-update.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Update</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-3-docker_tidymass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Docker version tidymass</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-4-build_own_docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Build your own docker image based on tidymass</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">massdataset package</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-1-create_mass_dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create mass_dataset class</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-2-add_ms2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Add MS2 spectra data into mass_dataset class object”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-3-mass_dataset_other_tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Create mass_dataset class from other tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-4-extract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Extract data from mass_dataset</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-5-processing_information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Processing information in mass_data class</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data format converter</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-1-proteowizard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-2-data_convert.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Convert data using massconverter</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Raw data processing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-raw_data_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Raw data processing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">11.1</span> Introduction</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="header-section-number">11.2</span> Data preparation</a></li>
+  <li><a href="#pull-pwiz-docker" id="toc-pull-pwiz-docker" class="nav-link" data-scroll-target="#pull-pwiz-docker"><span class="header-section-number">11.3</span> Pull <code>pwiz</code> docker</a></li>
+  <li><a href="#set-massconvert-parameters" id="toc-set-massconvert-parameters" class="nav-link" data-scroll-target="#set-massconvert-parameters"><span class="header-section-number">11.4</span> Set <code>massconvert</code> parameters</a></li>
+  <li><a href="#convert-data" id="toc-convert-data" class="nav-link" data-scroll-target="#convert-data"><span class="header-section-number">11.5</span> Convert data</a></li>
+  <li><a href="#bash-code" id="toc-bash-code" class="nav-link" data-scroll-target="#bash-code"><span class="header-section-number">11.6</span> Bash code</a></li>
+  <li><a href="#pwiz" id="toc-pwiz" class="nav-link" data-scroll-target="#pwiz"><span class="header-section-number">11.7</span> pwiz</a></li>
+  <li><a href="#detailed-help-of-msconvert" id="toc-detailed-help-of-msconvert" class="nav-link" data-scroll-target="#detailed-help-of-msconvert"><span class="header-section-number">11.8</span> Detailed help of <code>msconvert</code></a></li>
+  <li><a href="#example-of-docker" id="toc-example-of-docker" class="nav-link" data-scroll-target="#example-of-docker"><span class="header-section-number">11.9</span> Example of docker</a></li>
+  <li><a href="#other-links" id="toc-other-links" class="nav-link" data-scroll-target="#other-links"><span class="header-section-number">11.10</span> Other links</a></li>
+  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">11.11</span> Session information</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/3-2-data_convert.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/3-2-data_convert.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-1-proteowizard.html">Data format converter</a></li><li class="breadcrumb-item"><a href="./3-2-data_convert.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Convert data using massconverter</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Convert data using massconverter</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1</span> Introduction</h2>
+<p><code>massconverter</code> is a package in <code>tidymass</code> project which can be used to convert mass spectrometry raw data based on docker image of <a href="https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses"><code>pwid</code></a>.</p>
+<blockquote class="blockquote">
+<p>Now <code>massconverter</code> is only supports mac or Linux OS.</p>
+</blockquote>
+</section>
+<section id="data-preparation" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">11.2</span> Data preparation</h2>
+<p>Please place the raw data in one folder according to MS1 and MS2. Then you can convert them using <code>massconverter</code> package.</p>
+</section>
+<section id="pull-pwiz-docker" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="pull-pwiz-docker"><span class="header-section-number">11.3</span> Pull <code>pwiz</code> docker</h2>
+<p>Please run docker first.</p>
+<p>We need the docker image: https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses. So first we need use the <code>docker_pull_pwiz()</code> to pull this image.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(massconverter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docker_pull_pwiz</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to pull the latest version, set <code>force = TRUE</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docker_pull_pwiz</span>(<span class="at">force =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-massconvert-parameters" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="set-massconvert-parameters"><span class="header-section-number">11.4</span> Set <code>massconvert</code> parameters</h2>
+<p>The we need to set parameters for <code>massconvert</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> parameter <span class="ot">=</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   massconverter<span class="sc">::</span><span class="fu">create_msconvert_parameter</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">output_format =</span> <span class="st">"mzXML"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">binary_encoding_precision =</span> <span class="st">"32"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">zlib =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">write_index =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">peak_picking_algorithm =</span> <span class="st">"cwt"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">vendor_mslevels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cwt_mslevels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">cwt_min_snr =</span> <span class="fl">0.1</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">cwt_min_peak_spacing =</span> <span class="fl">0.1</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">subset_polarity =</span> <span class="st">"positive"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">subset_scan_number =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">subset_scan_time =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">300</span>),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">subset_mslevels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">zero_samples_mode =</span> <span class="st">"removeExtra"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">zero_samples_mslevels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">zero_samples_add_missing_flanking_zero_count =</span> <span class="dv">5</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>parameter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-------------------- 
+pacakge_name: massconverter 
+function_name: create_msconvert_parameter 
+time: 2025-07-20 19:24:59.612127 
+parameters:
+output_format : mzXML 
+binary_encoding_precision : 32 
+zlib : TRUE 
+write_index : TRUE 
+peak_picking_algorithm : cwt 
+vendor_mslevels : c(1, NA) 
+cwt_mslevels : c(1, NA) 
+cwt_min_snr : 0.1 
+cwt_min_peak_spacing : 0.1 
+subset_polarity : positive 
+subset_scan_number : c(NA, NA) 
+subset_scan_time : c(60, 300) 
+subset_mslevels : c(1, 2) 
+zero_samples_mode : removeExtra 
+zero_samples_mslevels : c(1, NA) 
+zero_samples_add_missing_flanking_zero_count : 5 </code></pre>
+</div>
+</div>
+</section>
+<section id="convert-data" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="convert-data"><span class="header-section-number">11.5</span> Convert data</h2>
+<p>Just put the raw data into one folder, and then begin to convert data.</p>
+<p>Here we use the demo data, please download them <a href="">here</a>. And then put them in one folder named as <code>demo_data/raw_data</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">convert_raw_data</span>(<span class="at">input_path =</span> <span class="st">"demo_data/raw_data"</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">output_path =</span> <span class="st">"demo_data/mzxml"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">msconvert_parameter =</span> parameter, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">docker_parameters =</span> <span class="fu">c</span>(),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">process_all =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then the converted data will be in the <code>demo_data/mzxml</code></p>
+<p><img src="./images/part3/Screen1.png" class="img-fluid"></p>
+</section>
+<section id="bash-code" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="bash-code"><span class="header-section-number">11.6</span> Bash code</h2>
+<p>If you want to run it in bash, you can also use the <code>get_run_code()</code> to get the code that can run in bash.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_run_code</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input_path =</span> <span class="st">"demo_data/raw_data"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_path =</span> <span class="st">"demo_data/mzxml"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">msconvert_parameter =</span> parameter,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">docker_parameters =</span> <span class="fu">c</span>(),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">process_all =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+</section>
+<section id="pwiz" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="pwiz"><span class="header-section-number">11.7</span> pwiz</h2>
+<p>This is a docker image of of <code>proteowizard</code>.</p>
+<p>Just type this in terminal:</p>
+<pre><code>docker run -it --rm chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine msconvert --help</code></pre>
+</section>
+<section id="detailed-help-of-msconvert" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="detailed-help-of-msconvert"><span class="header-section-number">11.8</span> Detailed help of <code>msconvert</code></h2>
+<pre><code>Convert mass spec data file formats.
+
+Return value: # of failed files.
+
+Options:
+  -f [ --filelist ] arg              : specify text file containing filenames
+  -o [ --outdir ] arg (=.)           : set output directory ('-' for stdout) 
+                                     [.]
+  -c [ --config ] arg                : configuration file (optionName=value)
+  --outfile arg                      : Override the name of output file.
+  -e [ --ext ] arg                   : set extension for output files 
+                                     [mzML|mzXML|mgf|txt|mz5]
+  --mzML                             : write mzML format [default]
+  --mzXML                            : write mzXML format
+  --mz5                              : write mz5 format
+  --mgf                              : write Mascot generic format
+  --text                             : write ProteoWizard internal text format
+  --ms1                              : write MS1 format
+  --cms1                             : write CMS1 format
+  --ms2                              : write MS2 format
+  --cms2                             : write CMS2 format
+  -v [ --verbose ]                   : display detailed progress information
+  --64                               : set default binary encoding to 64-bit 
+                                     precision [default]
+  --32                               : set default binary encoding to 32-bit 
+                                     precision
+  --mz64                             : encode m/z values in 64-bit precision 
+                                     [default]
+  --mz32                             : encode m/z values in 32-bit precision
+  --inten64                          : encode intensity values in 64-bit 
+                                     precision
+  --inten32                          : encode intensity values in 32-bit 
+                                     precision [default]
+  --noindex                          : do not write index
+  -i [ --contactInfo ] arg           : filename for contact info
+  -z [ --zlib ]                      : use zlib compression for binary data
+  --numpressLinear [=arg(=2e-09)]    : use numpress linear prediction 
+                                     compression for binary mz and rt data 
+                                     (relative accuracy loss will not exceed 
+                                     given tolerance arg, unless set to 0)
+  --numpressLinearAbsTol [=arg(=-1)] : desired absolute tolerance for linear 
+                                     numpress prediction (e.g. use 1e-4 for a 
+                                     mass accuracy of 0.2 ppm at 500 m/z, 
+                                     default uses -1.0 for maximal accuracy). 
+                                     Note: setting this value may substantially
+                                     reduce file size, this overrides relative 
+                                     accuracy tolerance.
+  --numpressPic                      : use numpress positive integer 
+                                     compression for binary intensities 
+                                     (absolute accuracy loss will not exceed 
+                                     0.5)
+  --numpressSlof [=arg(=0.0002)]     : use numpress short logged float 
+                                     compression for binary intensities 
+                                     (relative accuracy loss will not exceed 
+                                     given tolerance arg, unless set to 0)
+  -n [ --numpressAll ]               : same as --numpressLinear --numpressSlof 
+                                     (see https://github.com/fickludd/ms-numpre
+                                     ss for more info)
+  -g [ --gzip ]                      : gzip entire output file (adds .gz to 
+                                     filename)
+  --filter arg                       : add a spectrum list filter
+  --chromatogramFilter arg           : add a chromatogram list filter
+  --merge                            : create a single output file from 
+                                     multiple input files by merging file-level
+                                     metadata and concatenating spectrum lists
+  --runIndexSet arg                  : for multi-run sources, select only the 
+                                     specified run indices
+  --simAsSpectra                     : write selected ion monitoring as 
+                                     spectra, not chromatograms
+  --srmAsSpectra                     : write selected reaction monitoring as 
+                                     spectra, not chromatograms
+  --combineIonMobilitySpectra        : write all ion mobility or Waters SONAR 
+                                     bins/scans in a frame/block as one 
+                                     spectrum instead of individual spectra
+  --acceptZeroLengthSpectra          : some vendor readers have an efficient 
+                                     way of filtering out empty spectra, but it
+                                     takes more time to open the file
+  --ignoreMissingZeroSamples         : some vendor readers do not include zero 
+                                     samples in their profile data; the default
+                                     behavior is to add the zero samples but 
+                                     this option disables that
+  --ignoreUnknownInstrumentError     : if true, if an instrument cannot be 
+                                     determined from a vendor file, it will not
+                                     be an error
+  --stripLocationFromSourceFiles     : if true, sourceFile elements will be 
+                                     stripped of location information, so the 
+                                     same file converted from different 
+                                     locations will produce the same mzML
+  --stripVersionFromSoftware         : if true, software elements will be 
+                                     stripped of version information, so the 
+                                     same file converted with different 
+                                     versions will produce the same mzML
+  --singleThreaded [=arg(=1)] (=2)   : if true, reading and writing spectra 
+                                     will be done on a single thread
+  --help                             : show this message, with extra detail on 
+                                     filter options
+  --help-filter arg                  : name of a single filter to get detailed 
+                                     help for
+
+FILTER OPTIONS
+
+Note: Filters are applied sequentially in the order that you list them, and the
+sequence order
+can make a large difference in your output.  In particular, the peakPicking
+filter must be first
+in line if you wish to use the vendor-supplied centroiding algorithms since
+these use the vendor
+DLLs, which only operate on raw untransformed data.
+
+Many filters take 'int_set' arguments.  An 'int_set' is a list of intervals of
+the form [a,b] or a[-][b].
+For example '[0,3]' and '0-3' both mean 'the set of integers from 0 to 3
+inclusive'.
+'1-' means 'the set of integers from 1 to the largest allowable number'.  
+'9' is also an integer set, equivalent to '[9,9]'.
+'[0,2] 5-7' is the set '0 1 2 5 6 7'. 
+index &lt;index_value_set&gt;
+Selects spectra by index - an index value 0-based numerical order in which the
+spectrum appears in the input.
+  &lt;index_value_set&gt; is an int_set of indexes.
+
+id &lt;id_set&gt;
+Selects one or more spectra by native IDs separated by semicolon (;).
+  &lt;id_set&gt; is a semicolon-delimited set of ids.
+
+msLevel &lt;mslevels&gt;
+This filter selects only spectra with the indicated &lt;mslevels&gt;, expressed as an
+int_set.
+
+chargeState &lt;charge_states&gt;
+This filter keeps spectra that match the listed charge state(s), expressed as an
+int_set.  Both known/single and possible/multiple charge states are tested.  Use
+0 to include spectra with no charge state at all.
+
+precursorRecalculation 
+This filter recalculates the precursor m/z and charge for MS2 spectra. It looks
+at the prior MS1 scan to better infer the parent mass.  However, it only works
+on orbitrap and FT data,although it does not use any 3rd party (vendor DLL)
+code.  Since the time the code was written, Thermo has since fixed up its own
+estimation in response, so it's less critical than it used to be (though can
+still be useful).
+
+mzRefiner input1.pepXML input2.mzid [msLevels=&lt;1-&gt;]
+[thresholdScore=&lt;CV_Score_Name&gt;] [thresholdValue=&lt;floatset&gt;]
+[thresholdStep=&lt;float&gt;] [maxSteps=&lt;count&gt;]
+This filter recalculates the m/z and charges, adjusting precursors for MS2
+spectra and spectra masses for MS1 spectra. It uses an ident file with a
+threshold field and value to calculate the error and will then choose a shifting
+mechanism to correct masses throughout the file. It only works on orbitrap, FT,
+and TOF data. It is designed to work on mzML files created by msconvert from a
+single dataset (single run), and with an identification file created using that
+mzML file. It does not use any 3rd party (vendor DLL) code. Recommended Scores
+and thresholds: MS-GF:SpecEValue,-1e-10 (&lt;1e-10); MyriMatch:MVH,35- (&gt;35);
+xcorr,3- (&gt;3)
+
+lockmassRefiner mz=&lt;real&gt; mzNegIons=&lt;real (mz)&gt; tol=&lt;real (1.0 Daltons)&gt;
+For Waters data, adjusts m/z values according to the specified lockmass m/z and
+tolerance. Distinct m/z value for negative ions is optional and defaults to the
+given mz value. For other data, currently does nothing.
+
+precursorRefine 
+This filter recalculates the precursor m/z and charge for MS2 spectra. It looks
+at the prior MS1 scan to better infer the parent mass.  It only works on
+orbitrap, FT, and TOF data. It does not use any 3rd party (vendor DLL) code.
+
+peakPicking [&lt;PickerType&gt; [snr=&lt;minimum signal-to-noise ratio&gt;]
+[peakSpace=&lt;minimum peak spacing&gt;] [msLevel=&lt;ms_levels&gt;]]
+This filter performs centroiding on spectrawith the selected &lt;ms_levels&gt;,
+expressed as an int_set.  The value for &lt;PickerType&gt; must be "cwt" or "vendor":
+when &lt;PickerType&gt; = "vendor", vendor (Windows DLL) code is used if available. 
+IMPORTANT NOTE: since this filter operates on the raw data through the vendor
+DLLs, IT MUST BE THE FIRST FILTER IN ANY LIST OF FILTERS when "vendor" is used.
+The other option for PickerType is "cwt", which uses ProteoWizard's
+wavelet-based algorithm for performing peak-picking with a wavelet-space
+signal-to-noise ratio of &lt;signal-to-noise ratio&gt;.
+Defaults:
+ &lt;PickerType&gt; is a low-quality (non-vendor) local maxima algorithm
+ &lt;signal-to-noise ratio&gt; = 1.0
+ &lt;minimum peak spacing&gt; = 0.1
+ &lt;ms_levels&gt; = 1-
+ 
+
+scanNumber &lt;scan_numbers&gt;
+This filter selects spectra by scan number.  Depending on the input data type,
+scan number and spectrum index are not always the same thing - scan numbers are
+not always contiguous, and are usually 1-based.
+&lt;scan_numbers&gt; is an int_set of scan numbers to be kept.
+
+scanEvent &lt;scan_event_set&gt;
+This filter selects spectra by scan event.  For example, to include all scan
+events except scan event 5, use filter "scanEvent 1-4 6-".  A "scan event" is a
+preset scan configuration: a user-defined scan configuration that specifies the
+instrumental settings in which a spectrum is acquired. An instrument may cycle
+through a list of preset scan configurations to acquire data. This is a more
+generic term for the Thermo "scan event", which is defined in the Thermo
+Xcalibur glossary as: "a mass spectrometer scan that is defined by choosing the
+necessary scan parameter settings. Multiple scan events can be defined for each
+segment of time.".
+
+scanTime &lt;scan_time_range&gt;
+This filter selects only spectra within a given time range.
+  &lt;scan_time_range&gt; is a time range, specified in seconds.  For example, to
+select only spectra within the second minute of the run, use "scanTime
+[60-119.99]".
+
+sortByScanTime 
+This filter reorders spectra, sorting them by ascending scan start time.
+
+stripIT 
+This filter rejects ion trap data spectra with MS level 1.
+
+metadataFixer 
+This filter is used to add or replace a spectra's TIC/BPI metadata, usually
+after peakPicking where the change from profile to centroided data may make the
+TIC and BPI values inconsistent with the revised scan data.  The filter
+traverses the m/z intensity arrays to find the sum and max. For example, in
+msconvert it can be used as: --filter "peakPicking true 1-" --filter
+metadataFixer.  It can also be used without peak picking for some strange
+results. Certainly adding up all the samples of profile data to get the TIC is
+just wrong, but we do it anyway.
+
+titleMaker &lt;format_string&gt;
+This filter adds or replaces spectrum titles according to specified
+&lt;format_string&gt;. You can use it, for example, to customize the TITLE line in MGF
+output in msconvert.  The following keywords are recognized: 
+   "&lt;RunId&gt;" - prints the spectrum's Run id - for example, "Data.d" from
+"C:/Agilent/Data.d/AcqData/mspeak.bin"
+   "&lt;Index&gt;" - prints the spectrum's index
+   "&lt;Id&gt;" - prints the spectrum's nativeID
+   "&lt;SourcePath&gt;" - prints the path of the spectrum's source data
+   "&lt;ScanNumber&gt;" - if the nativeID can be represented as a single number,
+prints that number, else index+1
+   "&lt;ActivationType&gt;" - for the first precursor, prints the spectrum's
+"dissociation method" value
+   "&lt;IsolationMz&gt;" - for the first precursor, prints the the spectrum's
+"isolation target m/z" value
+   "&lt;PrecursorSpectrumId&gt;" - prints the nativeID of the spectrum of the first
+precursor
+   "&lt;SelectedIonMz&gt;" - prints the m/z value of the first selected ion of the
+first precursor
+   "&lt;ChargeState&gt;" - prints the charge state for the first selected ion of the
+first precursor
+   "&lt;SpectrumType&gt;" - prints the spectrum type
+   "&lt;ScanStartTimeInSeconds&gt;" - prints the spectrum's first scan's start time,
+in seconds
+   "&lt;ScanStartTimeInMinutes&gt;" - prints the spectrum's first scan's start time,
+in minutes
+   "&lt;BasePeakMz&gt;" - prints the spectrum's base peak m/z
+   "&lt;BasePeakIntensity&gt;" - prints the spectrum's base peak intensity
+   "&lt;TotalIonCurrent&gt;" - prints the spectrum's total ion current
+   "&lt;MsLevel&gt;" - prints the spectrum's MS level
+For example, to create a TITLE line in msconvert MGF output with the
+"name.first_scan.last_scan.charge" style (eg. "mydata.145.145.2"), use
+--filter "titleMaker &lt;RunId&gt;.&lt;ScanNumber&gt;.&lt;ScanNumber&gt;.&lt;ChargeState&gt;"
+
+threshold &lt;type&gt; &lt;threshold&gt; &lt;orientation&gt; [&lt;mslevels&gt;]
+This filter keeps data whose values meet various threshold criteria.
+   &lt;type&gt; must be one of:
+      count - keep the n=&lt;threshold&gt; [most|least] intense data points, where n
+is an integer.  Any data points with the same intensity as the nth [most|least]
+intense data point are removed.
+      count-after-ties - like "count", except that any data points with the same
+intensity as the nth [most|least] data point are retained.
+      absolute - keep data whose absolute intensity is [more|less] than
+&lt;threshold&gt;
+      bpi-relative - keep data whose intensity is [more|less] than &lt;threshold&gt;
+percent of the base peak intensity.  Percentage is expressed as a number between
+0 and 1, for example 75 percent is "0.75".
+      tic-relative - keep data whose individual intensities are [more|less] than
+&lt;threshold&gt; percent of the total ion current for the scan. Again, precentage is
+expressed as a number between 0 and 1.
+      tic-cutoff - keep the [most|least] intense data points up to &lt;threshold&gt;
+percent of the total ion current.  That is, the TIC of the retained points is
+&lt;threshold&gt; percent (expressed as a number between 0 and 1) of the original TIC.
+   &lt;orientation&gt; must be one of:
+      most-intense (keep m/z-intensity pairs above the threshold)
+      least-intense (keep m/z-intensity pairs below the threshold)
+   &lt;mslevels&gt; is an optional int_set of MS levels - if provided, only scans with
+those MS levels will be filtered, and others left untouched.
+
+mzWindow &lt;mzrange&gt;
+keeps mz/intensity pairs whose m/z values fall within the specified range.
+  &lt;mzrange&gt; is formatted as [mzLow,mzHigh].  For example, in msconvert to retain
+data in the m/z range 100.1 to 307.5, use --filter "mzWindow [100.1,307.5]" .
+
+mzPrecursors &lt;precursor_mz_list&gt; [mzTol=&lt;mzTol (10 ppm)&gt;]
+[target=&lt;selected|isolated&gt; (selected)] [mode=&lt;include|exclude (include)&gt;]
+Filters spectra based on precursor m/z values found in the &lt;precursor_mz_list&gt;,
+with &lt;mzTol&gt; m/z tolerance. To retain only spectra with precursor m/z values of
+123.4 and 567.8, use --filter "mzPrecursors [123.4,567.8]". Note that this
+filter will drop MS1 scans unless you include 0.0 in the list of precursor
+values.   &lt;mzTol&gt; is optional and must be specified as a number and units (PPM
+or MZ). For example, "5 PPM" or "2.1 MZ".
+   &lt;target&gt; is optional and must be either "selected" (the default) or
+"isolated". It determines whether the isolated m/z or the selected m/z is used
+for the "precursor m/z"
+   &lt;mode&gt; is optional and must be either "include" (the default) or "exclude". 
+If "exclude" is used, the filter drops spectra that match the various criteria
+instead of keeping them.
+
+defaultArrayLength &lt;peak_count_range&gt;
+Keeps only spectra with peak counts within &lt;peak_count_range&gt;, expressed as an
+int_set. (In mzML the peak list length is expressed as "defaultArrayLength",
+hence the name.)  For example, to include only spectra with 100 or more peaks,
+you would use filter "defaultArrayLength 100-" .
+
+zeroSamples &lt;mode&gt; [&lt;MS_levels&gt;]
+This filter deals with zero values in spectra - either removing them, or adding
+them where they are missing.
+  &lt;mode&gt; is either removeExtra or addMissing[=&lt;flankingZeroCount&gt;] .
+  &lt;MS_levels&gt; is optional, when provided (as an int_set) the filter is applied
+only to spectra with those MS levels.
+When &lt;mode&gt; is "removeExtra", consecutive zero intensity peaks are removed from
+spectra.  For example, a peak list
+  "100.1,1000 100.2,0 100.3,0 100.4,0 100.5,0 100.6,1030"
+would become 
+  "100.1,1000 100.2,0 100.5,0 100.6,1030"
+and a peak list 
+  "100.1,0 100.2,0 100.3,0 100.4,0 100.5,0 100.6,1030 100.7,0 100.8,1020 100.9,0
+101.0,0"
+would become 
+  "100.5,0 100.6,1030 100.7,0 100.8,1020 100.9,0"
+When &lt;mode&gt; is "addMissing", each spectrum's sample rate is automatically
+determined (the rate can change but only gradually) and flanking zeros are
+inserted around non-zero data points.  The optional [=&lt;flankingZeroCount&gt;] value
+can be used to limit the number of flanking zeros, otherwise the spectrum is
+completely populated between nonzero points. For example, to make sure spectra
+have at least 5 flanking zeros around runs on nonzero points, use filter
+"addMissing=5".
+
+mzPresent &lt;mz_list&gt; [mzTol=&lt;tolerance&gt; (0.5 mz)] [type=&lt;type&gt; (count)]
+[threshold=&lt;threshold&gt; (10000)] [orientation=&lt;orientation&gt; (most-intense)]
+[mode=&lt;include|exclude (include)&gt;]
+This filter includes or excludes spectra depending on whether the specified
+peaks are present.
+   &lt;mz_list&gt; is a list of mz values of the form [mz1,mz2, ... mzn] (for example,
+"[100, 300, 405.6]"). Spectra which contain peaks within &lt;tolerance&gt; of any of
+these values will be kept.
+   &lt;tolerance&gt; is specified as a number and units (PPM or MZ). For example, "5
+PPM" or "2.1 MZ".
+   &lt;type&gt;, &lt;threshold&gt;, and &lt;orientation&gt; operate as in the "threshold" filter
+(see above).
+   &lt;include|exclude&gt; is optional and has value "include" (the default) or
+"exclude".  If "exclude" is used the filter drops spectra that match the various
+criteria instead of keeping them.
+
+scanSumming [precursorTol=&lt;precursor tolerance&gt;] [scanTimeTol=&lt;scan time
+tolerance in seconds&gt;] [ionMobilityTol=&lt;ion mobility tolerance&gt;]
+This filter sums MS2 sub-scans whose precursors are within &lt;precursor tolerance&gt;
+(default: 0.05 m/z), &lt;scan time tolerance&gt; (default: 10 s), and for ion mobility
+data, &lt;ion mobility tolerance&gt; (default 0.01 ms or vs/cm^2). It is intended for
+some Waters DDA data and Bruker PASEF data, where sub-scans should be summed
+together to increase the SNR.
+
+thermoScanFilter &lt;exact|contains&gt; &lt;include|exclude&gt; &lt;match string&gt;
+   Includes or excludes scans based on the scan filter (Thermo instrumentation
+only).
+   &lt;exact|contains&gt;: If "exact" is set, spectra only match the search string if
+there is an exact match.
+                     If "contains" is set, spectra match the search string if
+the search string is 
+                     contained somewhere in the scan filter.
+   &lt;include|exclude&gt;: If "include" is set, only spectra that match the filter
+will be kept.
+                      If "exclude" is set, only spectra that do NOT match the
+filter will be kept.
+                     used the filter drops data points that match the various
+criteria instead of keeping them.   &lt;match string&gt; specifies the search string
+to be compared to each scan filter (it may contain spaces)
+
+
+MS2Denoise [&lt;peaks_in_window&gt; [&lt;window_width_Da&gt;
+[multicharge_fragment_relaxation]]]
+Noise peak removal for spectra with precursor ions.
+   &lt;peaks_in_window&gt; - the number peaks to select in moving window, default is
+6.
+   &lt;window_width_Da&gt; - the width of the window in Da, default is 30.
+   &lt;multicharge_fragment_relaxation&gt; - if "true" (the default), allows more data
+below multiply charged precursors.
+The filter first removes any m/z values above the precursor mass minus the mass
+of glycine.
+It then removes any m/z values within .5 Da of the unfragmented precursor mass.
+Finally it retains only the &lt;peaks_in_window&gt; most intense ions within a sliding
+window of &lt;window_width_Da&gt;.
+If &lt;multicharge_fragment_relaxation&gt; is true, allows more peaks at lower mass
+(i.e. below precursor).
+If &lt;window_width_Da&gt; is set to 0, the window size defaults to the highest
+observed mass in the spectrum (this leaving only &lt;peaks_in_window&gt; ions in the
+output spectrum).
+Reference: "When less can yield more - Computational preprocessing of MS/MS
+spectra for peptide identification", Bernhard Y. Renard, Marc Kirchner, Flavio
+Monigatti, Alexander R. Ivanov, Juri Rappsilber, Dominic Winter, Judith A. J.
+Steen, Fred A. Hamprecht and Hanno Steen  Proteomics, 9, 4978-4984, 2009.
+
+
+MS2Deisotope [hi_res [mzTol=&lt;mzTol&gt;]] [Poisson [minCharge=&lt;minCharge&gt;]
+[maxCharge=&lt;maxCharge&gt;]]
+Deisotopes ms2 spectra using the Markey method or a Poisson model.
+  For the Markey method, hi_res sets high resolution mode to "false" (the
+default) or "true".
+  &lt;mzTol&gt; sets the mz tolerance.  It defaults to .01 in high resoltion mode,
+otherwise it defaults to 0.5.
+  Poisson activates a Poisson model based on the relative intensity
+distribution.
+  &lt;minCharge&gt; (default: 1) and &lt;maxCharge&gt; (default: 3) define the charge search
+range within the Poisson deisotoper. (default: 1)
+
+ETDFilter [&lt;removePrecursor&gt; [&lt;removeChargeReduced&gt; [&lt;removeNeutralLoss&gt;
+[&lt;blanketRemoval&gt; [&lt;matchingTolerance&gt; ]]]]]
+Filters ETD MSn spectrum data points, removing unreacted precursors,
+charge-reduced precursors, and neutral losses.
+  &lt;removePrecursor&gt; - if "true", remove unreacted precursor (default is "true")
+  &lt;removeChargeReduced&gt; - if "true", remove charge reduced precursor (default is
+"true")
+  &lt;removeNeutralLoss&gt; - if "true", remove neutral loss species from charge
+reduced precursor (default is "true")
+  &lt;blanketRemoval&gt; - if "true", remove neutral losses in a charge-scaled 60 Da
+swath rather than only around known loss species (default is "true")
+  &lt;matchingTolerance&gt; - specify matching tolerance in m/z or ppm (examples: "3.1
+mz" (the default) or "2.2 ppm")
+
+demultiplex massError=&lt;tolerance and units, eg 0.5Da (default 10ppm)&gt;
+nnlsMaxIter=&lt;int (50)&gt; nnlsEps=&lt;real (1e-10)&gt; noWeighting=&lt;bool (false)&gt;
+demuxBlockExtra=&lt;real (0)&gt; variableFill=&lt;bool (false)&gt; noSumNormalize=&lt;bool
+(false)&gt; optimization=&lt;(none)|overlap_only&gt; interpolateRT=&lt;bool (true)&gt;
+minWindowSize=&lt;real (0.2)&gt;
+Separates overlapping or MSX multiplexed spectra into several demultiplexed
+spectra by inferring from adjacent multiplexed spectra. Optionally handles
+variable fill times (for Thermo).
+
+chargeStatePredictor [overrideExistingCharge=&lt;true|false (false)&gt;]
+[maxMultipleCharge=&lt;int (3)&gt;] [minMultipleCharge=&lt;int (2)&gt;]
+[singleChargeFractionTIC=&lt;real (0.9)&gt;] [maxKnownCharge=&lt;int (0)&gt;]
+[makeMS2=&lt;true|false (false)&gt;]
+Predicts MSn spectrum precursors to be singly or multiply charged depending on
+the ratio of intensity above and below the precursor m/z, or optionally using
+the "makeMS2" algorithm
+  &lt;overrideExistingCharge&gt; : always override existing charge information
+(default:"false")
+  &lt;maxMultipleCharge&gt; (default 3) and &lt;minMultipleCharge&gt; (default 2): range of
+values to add to the spectrum's existing "MS_possible_charge_state" values.If
+these are the same values, the spectrum's MS_possible_charge_state values are
+removed and replaced with this single value.
+  &lt;singleChargeFractionTIC&gt; : is a percentage expressed as a value between 0 and
+1 (the default is 0.9, or 90 percent). This is the value used as the previously
+mentioned ratio of intensity above and below the precursor m/z.
+  &lt;maxKnownCharge&gt; (default is 0, meaning no maximum): the maximum charge
+allowed for "known" charges even if override existing charge is false. This
+allows overriding junk charge calls like +15 peptides.
+  &lt;algorithmMakeMS2&gt; : default is "false", when set to "true" the "makeMS2"
+algorithm is used instead of the one described above.
+
+turbocharger [minCharge=&lt;minCharge&gt;] [maxCharge=&lt;maxCharge&gt;]
+[precursorsBefore=&lt;before&gt;] [precursorsAfter=&lt;after&gt;] [halfIsoWidth=&lt;half-width
+of isolation window&gt;] [defaultMinCharge=&lt;defaultMinCharge&gt;]
+[defaultMaxCharge=&lt;defaultMaxCharge&gt;] [useVendorPeaks=&lt;useVendorPeaks&gt;]
+Predicts MSn spectrum precursor charge based on the isotopic distribution
+associated with the survey scan(s) of the selected precursor
+  &lt;maxCharge&gt; (default: 8) and &lt;minCharge&gt; (default 1): defines range of
+possible precursor charge states.
+  &lt;before&gt; (default: 2) and &lt;after&gt; (default 0): number of survey (MS1) scans to
+check for precursor isotopes, before and after a MS/MS in retention time.
+  &lt;half-width of isolation window&gt; (default: 1.25): half-width of the isolation
+window (in Th.) from which precursor is derived. Window is centered at target
+m/z with a total size of +/- the value entered.
+  &lt;defaultMinCharge&gt; (default: 0) and &lt;defaultMaxCharge&gt; (default: 0): in the
+event that no isotope is found in the isolation window, a range of charges
+between these two values will be assigned to the spectrum. If both values are
+left at zero, no charge will be assigned to the spectrum.
+
+activation &lt;precursor_activation_type&gt;
+Keeps only spectra whose precursors have the specifed activation type.  It
+doesn't affect non-MS spectra, and doesn't affect MS1 spectra. Use it to create
+output files containing only ETD or CID MSn data where both activation modes
+have been interleaved within a given input vendor data file (eg: Thermo's
+Decision Tree acquisition mode).
+   &lt;precursor_activation_type&gt; is any one of: ETD CID SA HCD HECID BIRD ECD
+IRMPD PD PSD PQD SID or SORI.
+
+collisionEnergy low=&lt;real&gt; high=&lt;real&gt; [mode=&lt;include|exclude (include)&gt;]
+[acceptNonCID=&lt;true|false (true)] [acceptMissingCE=&lt;true|false (false)]
+Includes/excludes MSn spectra with CID collision energy within the specified
+range [&lt;low&gt;, &lt;high&gt;].
+   Non-MS and MS1 spectra are always included. Non-CID MS2s and MS2s with
+missing CE are optionally included/excluded.
+
+analyzer &lt;analyzer&gt;
+This filter keeps only spectra with the indicated mass analyzer type. 
+  &lt;analyzer&gt; is any one of "quad" "orbi" "FT" "IT" or "TOF".
+Sometimes people use the terms FT and Orbi interchangeably, which is OK because
+there are no hybrid FT+Orbi instruments - so this filter does too.
+
+
+analyzerType &lt;analyzer&gt;
+This is deprecated syntax for filtering by mass analyzer type.
+  &lt;analyzer&gt; can be "FTMS" or "ITMS".
+
+polarity &lt;polarity&gt;
+Keeps only spectra with scan of the selected &lt;polarity&gt;.
+   &lt;polarity&gt; is any one of "positive" "negative" "+" or "-".
+
+diaUmpire params=&lt;filepath to DiaUmpire .params file&gt;
+Separates DIA spectra into pseudo-DDA spectra using the DIA Umpire algorithm.
+
+
+
+Examples:
+
+# convert data.RAW to data.mzML
+msconvert data.RAW
+
+# convert data.RAW to data.mzXML
+msconvert data.RAW --mzXML
+
+# put output file in my_output_dir
+msconvert data.RAW -o my_output_dir
+
+# combining options to create a smaller mzML file, much like the old ReAdW converter program
+msconvert data.RAW --32 --zlib --filter "peakPicking true 1-" --filter "zeroSamples removeExtra"
+
+# extract scan indices 5...10 and 20...25
+msconvert data.RAW --filter "index [5,10] [20,25]"
+
+# extract MS1 scans only
+msconvert data.RAW --filter "msLevel 1"
+
+# extract MS2 and MS3 scans only
+msconvert data.RAW --filter "msLevel 2-3"
+
+# extract MSn scans for n&gt;1
+msconvert data.RAW --filter "msLevel 2-"
+
+# apply ETD precursor mass filter
+msconvert data.RAW --filter ETDFilter
+
+# remove non-flanking zero value samples
+msconvert data.RAW --filter "zeroSamples removeExtra"
+
+# remove non-flanking zero value samples in MS2 and MS3 only
+msconvert data.RAW --filter "zeroSamples removeExtra 2 3"
+
+# add missing zero value samples (with 5 flanking zeros) in MS2 and MS3 only
+msconvert data.RAW --filter "zeroSamples addMissing=5 2 3"
+
+# keep only HCD spectra from a decision tree data file
+msconvert data.RAW --filter "activation HCD"
+
+# keep the top 42 peaks or samples (depending on whether spectra are centroid or profile):
+msconvert data.RAW --filter "threshold count 42 most-intense"
+
+# multiple filters: select scan numbers and recalculate precursors
+msconvert data.RAW --filter "scanNumber [500,1000]" --filter "precursorRecalculation"
+
+# multiple filters: apply peak picking and then keep the bottom 100 peaks:
+msconvert data.RAW --filter "peakPicking true 1-" --filter "threshold count 100 least-intense"
+
+# multiple filters: apply peak picking and then keep all peaks that are at least 50% of the intensity of the base peak:
+msconvert data.RAW --filter "peakPicking true 1-" --filter "threshold bpi-relative .5 most-intense"
+
+# use a configuration file
+msconvert data.RAW -c config.txt
+
+# example configuration file
+mzXML=true
+zlib=true
+filter="index [3,7]"
+filter="precursorRecalculation"
+
+
+Questions, comments, and bug reports:
+https://github.com/ProteoWizard
+support@proteowizard.org
+
+ProteoWizard release: 3.0.21354 (9ee14c7)
+Build date: Dec 20 2021 16:00:06</code></pre>
+</section>
+<section id="example-of-docker" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="example-of-docker"><span class="header-section-number">11.9</span> Example of docker</h2>
+<pre><code>docker run --rm -e WINEDEBUG=-all -v /Users/xiaotaoshen/tidymass/massconverter/vignettes/demo_data:/data -v /Users/xiaotaoshen/tidymass/massconverter/vignettes/demo_data/mzxml:/outpath chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine msconvert /data/3.raw --ignoreUnknownInstrumentError --mzML --32 --zlib  --filter \"peakPicking true 1-\" --filter \"msLevel 1\"  -o /outpath/</code></pre>
+</section>
+<section id="other-links" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="other-links"><span class="header-section-number">11.10</span> Other links</h2>
+<ol type="1">
+<li><p>https://fragpipe.nesvilab.org/docs/tutorial_convert.html</p></li>
+<li><p>https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/0471250953.bi1324s46</p></li>
+<li><p>https://proteowizard.sourceforge.io/tools/filters.html</p></li>
+<li><p>https://ccms-ucsd.github.io/GNPSDocumentation/fileconversion/</p></li>
+<li><p>https://pubmed.ncbi.nlm.nih.gov/28188540/</p></li>
+<li><p>https://rickhelmus.github.io/patRoon/reference/convertMSFiles.html</p></li>
+<li><p>https://www.youtube.com/watch?v=xnjvZlSlp40</p></li>
+<li><p>https://github.com/pwilmart/PAW_pipeline/blob/master/docs/MSConvert.md</p></li>
+<li><p>https://link.springer.com/protocol/10.1007/978-1-4939-6747-6_23</p></li>
+<li><p>https://github.com/cran/MetabolomicsBasics/blob/master/R/msconvert.R</p></li>
+</ol>
+</section>
+<section id="session-information" class="level2" data-number="11.11">
+<h2 data-number="11.11" class="anchored" data-anchor-id="session-information"><span class="header-section-number">11.11</span> Session information</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.1 (2024-06-14)
+Platform: aarch64-apple-darwin20
+Running under: macOS 15.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] magrittr_2.0.3      massconverter_1.0.3
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     codetools_0.2-20  fastmap_1.2.0     xfun_0.52        
+ [5] glue_1.8.0        stringr_1.5.1     knitr_1.49        stevedore_0.9.6  
+ [9] htmltools_0.5.8.1 rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.3        
+[13] vctrs_0.6.5       compiler_4.4.1    purrr_1.0.2       rstudioapi_0.17.1
+[17] tools_4.4.1       curl_6.0.1        evaluate_1.0.1    rlang_1.1.4      
+[21] jsonlite_1.8.9    crayon_1.5.3      htmlwidgets_1.6.4 stringi_1.8.4    </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./3-1-proteowizard.html" class="pagination-link" aria-label="Convert data using proteowizard">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Convert data using proteowizard</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./4-1-raw_data_processing.html" class="pagination-link" aria-label="Raw data processing">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Raw data processing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/tidymass/tidymass-tutorial/edit/main/3-2-data_convert.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/tidymass/tidymass-tutorial/blob/main/3-2-data_convert.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

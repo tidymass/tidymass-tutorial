@@ -36,6 +36,11 @@ book:
     - part: "Data format converter"
       chapters:
         - 3-1-proteowizard.qmd
+        - 3-2-data_convert.qmd
+        
+    - part: "Raw data processing"
+      chapters:
+        - 4-1-raw_data_processing.qmd
 
 bibliography: references.bib
 
